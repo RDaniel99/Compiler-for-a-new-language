@@ -1,10 +1,11 @@
 %{
 #include <stdio.h>
+
 extern FILE* yyin;
 extern char* yytext;
 extern int yylineno;
 %}
-%token ID NR
+%token ID NR INT_TYPE FLOAT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE BOOL_VALUE
 %start start
 %%
 

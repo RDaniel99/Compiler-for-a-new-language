@@ -22,6 +22,7 @@
 "String" {return STRING_TYPE;}
 "Char" {return CHAR_TYPE;}
 "Float" {return FLOAT_TYPE;}
+"Void"  {return VOID_TYPE;}
 "Structure" {return STRUCTURE;}
 "if" {return IF;}
 "for" {return FOR;}
@@ -30,6 +31,11 @@
 
 "strlen" {return STRLEN_FUNC;}
 "eval" {return EVAL_FUNC;}
+
+"<"    {return LR;}
+">"    {return GR;}
+"<="   {return LRE;}
+">="   {return GRE;}
 
 "True"|"False" {return BOOL_VALUE;}
 \"[^\"]+\" {return STRING_VALUE;}

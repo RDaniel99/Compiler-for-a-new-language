@@ -1,9 +1,13 @@
+
 Let x:Int, y:Float;
+
+Let X:Array<Array<Void>[10]>[10];
 
 def f(x:Int,y:Float):Int
 begin
 
 end;
+
 
 
 Class test

@@ -8,7 +8,7 @@ extern char* yytext;
 extern int yylineno;
 %}
 
-%token BEG AND OR NOT DEF END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE ID INT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE BOOL_VALUE STRING_VALUE INT_VALUE CHAR_VALUE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
+%token BEG AND OR NOT DEF LR GR LRE GRE END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE ID VOID_TYPE INT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE BOOL_VALUE STRING_VALUE INT_VALUE CHAR_VALUE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
 
 %start start
 %%
@@ -31,12 +31,14 @@ tip: INT_TYPE
    | BOOL_TYPE
    | FLOAT_TYPE
    | CHAR_TYPE
+   | VOID_TYPE
+   | ARRAY_TYPE LR tip GR '[' INT_VALUE ']'
    ;
 
-declaratie_clasa: CLASS ID BEG cod_clasa END
+declaratie_clasa: CLASS ID BEG cod_clasa END {printf("declarare clasa\n");}
                 ;
 
-cod_clasa:declaratii
+cod_clasa:declaratii {printf("codul din clasa\n");}
          ;
 
 declaratie_variabila: LET lista_variabile_declarare
@@ -64,6 +66,7 @@ cod_functie: declaratie_variabila';'
            | statement cod_functie
            ;
 
+
 statement: FOR '('for_params')' BEG cod_functie END
          | WHILE '('conditions')' BEG cod_functie END
          | IF '('conditions')' BEG cod_functie END
@@ -71,40 +74,54 @@ statement: FOR '('for_params')' BEG cod_functie END
          | apelare';'
          ;
 
+
 for_params:asignare ';' condition';'asignare
           ;
+
 
 conditions: condition
           | condition logical_operator conditions
           ;
+
 
 condition: BOOL_VALUE
          | ID
          | apelare
          ;
 
+
 logical_operator: AND
                 | OR
                 | NOT
+                | LRE
+                | GRE
+                | LR
+                | GR
                 ;
+
+
 asignare: ID '=' value
         | ID '=' ID
         | ID '=' apelare
         | ID '=' classContent
         ;
 
+
 classContent: ID'.'ID
             | ID'.'classContent
             | ID'.'apelare
             ;
 
-apelare: ID '(' ')'
+
+apelare: ID '(' ')'           {printf("Apelat %d\n",$1);}
        | ID '('list_parametri')'
        ;
+
 
 list_parametri: parametru
               | parametru',' list_parametri
               ;
+
 parametru: value
          | ID
          | apelare
@@ -118,6 +135,7 @@ value: INT_VALUE
 
 EMPTY:
      ; 
+
 TODO:    {printf("NOT IMPLEMENTED\n");}
     ;
 

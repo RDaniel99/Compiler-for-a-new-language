@@ -4,6 +4,7 @@
 
 #include "Messages.h"
 #include "StackMemory.h"
+#include "Converter.h"
 
 typedef struct expr_info {
 	int intvalue;

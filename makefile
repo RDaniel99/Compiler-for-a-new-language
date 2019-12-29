@@ -1,7 +1,7 @@
 clean:
 	lex lex.l
 	yacc -d yacc.y
-	g++  Memory.cpp StackMemory.cpp y.tab.c lex.yy.c -ll -ly -o exec
+	gcc  Memory.cpp StackMemory.cpp y.tab.c lex.yy.c -ll -ly -lstdc++ -o exec
 	rm lex.yy.c
 	rm y.tab.c
 	rm y.tab.h
@@ -11,7 +11,7 @@ clean:
 verbose:
 	lex lex.l
 	yacc -d yacc.y
-	gcc  y.tab.c lex.yy.c -ll -ly -o exec
+	gcc  Memory.cpp StackMemory.cpp y.tab.c lex.yy.c -ll -ly -lstdc++ -o exec
 	rm lex.yy.c
 	rm y.tab.c
 	rm y.tab.h
@@ -21,7 +21,7 @@ debug:
 
 	lex -d lex.l
 	yacc -d yacc.y
-	gcc  y.tab.c lex.yy.c -ll -ly -o exec
+	gcc  Memory.cpp StackMemory.cpp y.tab.c lex.yy.c -ll -ly -lstdc++ -o exec
 	rm lex.yy.c
 	rm y.tab.c
 	rm y.tab.h

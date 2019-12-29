@@ -1,5 +1,8 @@
 %{
 #include <stdio.h>
+#include "Memory.h"
+#include "Messages.h"
+#include "StackMemory.h"
 
 extern FILE* yyin;
 extern char* yytext;

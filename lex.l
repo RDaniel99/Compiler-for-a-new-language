@@ -8,18 +8,23 @@
 "/\*(.|\n)+\*/" ; 
 
 "begin" {return BEG;}
-"int" {return INT_TYPE;}
-"bool" {return BOOL_TYPE;}
-"string" {return STRING_TYPE;}
-"char" {return CHAR_TYPE;}
-"float" {return FLOAT_TYPE;}
-"structure" {return STRUCTURE;}
-"Eval" {return EVAL;}
+"Define" {return DEFINE;}
+"Array" {return ARRAY_TYPE;}
+"Int" {return INT_TYPE;}
+"Bool" {return BOOL_TYPE;}
+"String" {return STRING_TYPE;}
+"Char" {return CHAR_TYPE;}
+"Float" {return FLOAT_TYPE;}
+"Structure" {return STRUCTURE;}
 "if" {return IF;}
 "for" {return FOR;}
 "while" {return WHILE;}
 
-"true"|"false" {return BOOL_VALUE;}
+
+"strlen" {retrun STRLEN_FUNC;}
+"eval" {return EVAL_FUNC;}
+
+"True"|"False" {return BOOL_VALUE;}
 \"[^\"]+\" {return STRING_VALUE;}
 -?[1-9][0-9]*|0 {return INT_VALUE;}
 '.' {return CHAR_VALUE;}

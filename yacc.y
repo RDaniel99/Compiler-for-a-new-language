@@ -5,7 +5,8 @@ extern FILE* yyin;
 extern char* yytext;
 extern int yylineno;
 %}
-%token BEG DEF END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE ID INT_TYPE FLOAT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE BOOL_VALUE STRING_VALUE INT_VALUE CHAR_VALUE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
+
+%token BEG AND OR NOT DEF END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE ID INT_TYPE FLOAT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE BOOL_VALUE STRING_VALUE INT_VALUE CHAR_VALUE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
 
 %start start
 %%
@@ -16,12 +17,12 @@ start: declaratii BEG cod_main END declaratii  {printf("Corect\n");}
      | BEG cod_main END                        {printf("Corect\n");}
      ;
 
-declaratii: declaratie_clasa 
-          | declaratie_variabila
-          | declaratie_functie
-          | declaratie_clasa declaratii
-          | declaratie_variabila declaratii
-          | declaratie_functie declaratii
+declaratii: declaratie_clasa';'
+          | declaratie_variabila';'
+          | declaratie_functie';'
+          | declaratie_clasa';' declaratii
+          | declaratie_variabila';' declaratii
+          | declaratie_functie';' declaratii
           ;
 
 tip: INT_TYPE
@@ -36,7 +37,7 @@ declaratie_clasa: CLASS ID BEG cod_clasa END
 cod_clasa:declaratii
          ;
 
-declaratie_variabila: LET lista_variabile_declarare ';'
+declaratie_variabila: LET lista_variabile_declarare
                     ;
 
 lista_variabile_declarare: variabila_tip
@@ -55,26 +56,48 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                   ;
 
 
-cod_functie: declaratie_variabila 
+cod_functie: declaratie_variabila';'
            | statement
-           | declaratie_variabila cod_functie
+           | declaratie_variabila';' cod_functie
            | statement cod_functie
            ;
 
-statement: FOR BEG cod_functie END
-         | WHILE BEG cod_functie END
-         | IF BEG cod_functie END
-         | asignare
-         | apelare 
+statement: FOR '('for_params')' BEG cod_functie END
+         | WHILE '('conditions')' BEG cod_functie END
+         | IF '('conditions')' BEG cod_functie END
+         | asignare';'
+         | apelare';'
          ;
 
-asignare: ID '=' value';'
-        | ID '=' ID';'
+for_params:asignare ';' condition';'asignare
+          ;
+
+conditions: condition
+          | condition logical_operator conditions
+          ;
+
+condition: BOOL_VALUE
+         | ID
+         | apelare
+         ;
+
+logical_operator: AND
+                | OR
+                | NOT
+                ;
+asignare: ID '=' value
+        | ID '=' ID
         | ID '=' apelare
+        | ID '=' classContent
         ;
 
-apelare: ID '(' ')' ';'
-       | ID '('list_parametri')' ';'
+classContent: ID'.'ID
+            | ID'.'classContent
+            | ID'.'apelare
+            ;
+
+apelare: ID '(' ')'
+       | ID '('list_parametri')'
        ;
 
 list_parametri: parametru
@@ -82,6 +105,7 @@ list_parametri: parametru
               ;
 parametru: value
          | ID
+         | apelare
          ;
 
 value: INT_VALUE
@@ -89,6 +113,7 @@ value: INT_VALUE
      | CHAR_VALUE
      | BOOL_VALUE
      ;
+
 EMPTY:
      ; 
 TODO:    {printf("NOT IMPLEMENTED\n");}

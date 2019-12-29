@@ -3,7 +3,7 @@ Let x:Int, y:Float;
 def f(x:Int,y:Float):Int
 begin
 
-end
+end;
 
 
 Class test
@@ -11,24 +11,32 @@ begin
     def f(x:Int):Int
     begin
 
-    end
+    end;
+
     Class test2
     begin
         def f(x:Int):Int
         begin
 
-        end
-    end
-end
+        end;
+    end;
+
+end;
 
 
 begin
 
     Let x:Int;
-    for
+    if(False)
     begin
         Let x:Int;
     end
-    f(1,2,3);
+
+    for(x=1;False;x=2)
+    begin
+        Let x:Int;
+    end
+
+    x=y.f(1,2,3);
 
 end

@@ -10,6 +10,9 @@
 "begin" {return BEG;}
 "def"   {return DEF;}
 "end"   {return END;}
+"And"   {return AND;}
+"Or"    {return OR;}
+"Not"   {return NOT;}
 "Let"   {return LET;}
 "Define" {return DEFINE;}
 "Class"  {return CLASS;}

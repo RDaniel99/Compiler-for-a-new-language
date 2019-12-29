@@ -10,5 +10,7 @@ public:
     bool AdaugaMemorie();
     bool EliminaMemorie();
 
+    bool PrintTable();
+
     std::vector<Memory> stck;
 };

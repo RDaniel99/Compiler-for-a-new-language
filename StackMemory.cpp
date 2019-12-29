@@ -48,3 +48,36 @@ bool StackMemory::EliminaMemorie()
 
     return true;
 }
+
+bool StackMemory::PrintTable()
+{
+    ofstream fout("symbol_table.txt");
+
+    for(unsigned int i = stck.size() - 1; i >= 0; i--)
+    {
+        fout << i << '\n';
+
+        fout << stck[i].variabile.size() << '\n';
+
+        for(auto x: stck[i].variabile)
+            fout << x.tip << ' ' << x.nume << ' ' << x.valoare << '\n';
+
+        fout << '\n' << '\n';
+
+        fout << stck[i].functii.size() << '\n';
+
+        for(auto x: stck[i].functii)
+        {
+            fout << x.returnType << ' ' << x.nume << ' ' << x.parametrii.size() << '\n';
+
+            for(auto y: x.parametrii)
+                fout << y.tip << ' ' << y.nume << ' ' << y.valoare << '\n';
+
+            fout << '\n';
+        }
+
+        fout << '\n';
+    }
+
+    return true;
+}

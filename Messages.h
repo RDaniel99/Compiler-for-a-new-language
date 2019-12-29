@@ -109,3 +109,4 @@ printf("Error: Impartire la zero\n");
 // Debug
 #define M_DEBUG \
 printf("Am ajuns aici!\n");
+

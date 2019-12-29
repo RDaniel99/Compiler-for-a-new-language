@@ -29,15 +29,15 @@ printf("eroare: %s la linia:%d\n",s,yylineno);
 }
 
 %}
+
 %union {
 int intval;
 char* strval;
-struct expr_info* expr_ptr;
 }
 
 %token <strval> ID
 
-%token<strval> BEG AND OR NOT DEF LR GR LRE GRE END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE VOID_TYPE INT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE BOOL_VALUE STRING_VALUE INT_VALUE CHAR_VALUE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
+%token BEG AND OR NOT DEF LR GR LRE GRE END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE VOID_TYPE INT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE BOOL_VALUE STRING_VALUE INT_VALUE CHAR_VALUE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
 
 
 
@@ -179,55 +179,12 @@ cod_main: EMPTY
 
 %%
 
-expr_info* create_int_expr(int value)
-{
-       
-   expr_info* expr = (expr_info*)malloc(sizeof(expr_info));
-   expr->intvalue = value;
-   expr->type = 1;
-   return expr;
-}
-
-expr_info* create_str_expr(char* value1, char* value2) 
-{
-   expr_info* expr = (expr_info*)malloc(sizeof(expr_info));
-   int len2 = value2 ? strlen(value2) : 0;
-   expr->strvalue = (char*) malloc(sizeof(char)*(strlen(value1) + len2 +1)); 
-   strcpy(expr->strvalue, value1);
-   if(value2)
-   {
-      strcat(expr->strvalue, value2);
-   }
-   expr->type = 2;
-   return expr;
-		
-}
-
-void free_expr(expr_info* expr)
-{
-  if(expr->type == 2)
-  {
-     free(expr->strvalue);
-  }
-  free(expr);
-}
-
-
-void print_expr(expr_info* expr)
-{
-   if(expr->type == 1) 
-   {
-	printf("Int expr with value:%d",expr->intvalue);
-   }
-   else
-   {
-	printf("Str expr with value:%s", expr->strvalue);	
-   }	
-}
 
 StackMemory memory;
+#include <iostream>
 
 int main(int argc, char** argv){
+
 yyin=fopen(argv[1],"r");
 yyparse();
 } 

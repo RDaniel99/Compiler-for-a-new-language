@@ -1,5 +1,5 @@
 
-Let x:Int, y:Float;
+Let x:Int, y:Float,z:Float;
 
 Let X:Array<Array<Void>[10]>[10];
 

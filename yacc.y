@@ -34,17 +34,17 @@ tip: INT_TYPE
    | ARRAY_TYPE LR tip GR '[' INT_VALUE ']'
    ;
 
-declaratie_clasa: CLASS ID BEG cod_clasa END {printf("declarare clasa\n");}
+declaratie_clasa: CLASS ID BEG cod_clasa END 
                 ;
 
-cod_clasa:declaratii {printf("codul din clasa\n");}
+cod_clasa:declaratii 
          ;
 
 declaratie_variabila: LET lista_variabile_declarare
                     ;
 
-lista_variabile_declarare: variabila_tip
-               | variabila_tip ',' lista_variabile_declarare
+lista_variabile_declarare: variabila_tip{printf("ultima variabila de pe linia %d  declarata\n",yylineno);}
+               | variabila_tip ',' lista_variabile_declarare {printf("variabila declarata pe linia %d\n",yylineno);}
                ;
 
 
@@ -59,10 +59,10 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                   ;
 
 
-cod_functie: declaratie_variabila';'
-           | statement
-           | declaratie_variabila';' cod_functie
-           | statement cod_functie
+cod_functie: declaratie_variabila';'              
+           | statement                            
+           | declaratie_variabila';' cod_functie  
+           | statement cod_functie                
            ;
 
 
@@ -112,7 +112,7 @@ classContent: ID'.'ID
             ;
 
 
-apelare: ID '(' ')'           {printf("Apelat %d\n",$1);}
+       apelare: ID '(' ')'           {printf("Apelat %s\n",$$);}
        | ID '('list_parametri')'
        ;
 
@@ -148,6 +148,8 @@ cod_main: EMPTY
 int yyerror(char * s){
 printf("eroare: %s la linia:%d\n",s,yylineno);
 }
+
+
 
 int main(int argc, char** argv){
 yyin=fopen(argv[1],"r");

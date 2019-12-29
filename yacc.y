@@ -1,6 +1,8 @@
 %{
 #include <stdio.h>
+#define YYSTYPE char const *
 
+///#include "StackMemory.h"
 
 extern FILE* yyin;
 extern char* yytext;
@@ -55,7 +57,7 @@ variabila_tip: ID':'tip
 declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_functie END
                   | DEF ID '('')' ':' tip BEG EMPTY END
                   | DEF ID '('lista_variabile_declarare')' ':' tip BEG EMPTY END
-                  | DEF ID '('')' ':' tip BEG EMPTY END
+                  | DEF ID '('')' ':' tip BEG cod_functie END
                   ;
 
 
@@ -112,7 +114,7 @@ classContent: ID'.'ID
             ;
 
 
-       apelare: ID '(' ')'           {printf("Apelat %s\n",$$);}
+       apelare: ID '(' ')'           {printf("Apelat %s\n",$1);}
        | ID '('list_parametri')'
        ;
 
@@ -135,8 +137,6 @@ value: INT_VALUE
 EMPTY:
      ; 
 
-TODO:    {printf("NOT IMPLEMENTED\n");}
-    ;
 
 
 cod_main: EMPTY
@@ -150,6 +150,7 @@ printf("eroare: %s la linia:%d\n",s,yylineno);
 }
 
 
+///StackMemory memory;
 
 int main(int argc, char** argv){
 yyin=fopen(argv[1],"r");

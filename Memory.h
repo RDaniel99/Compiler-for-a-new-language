@@ -1,10 +1,11 @@
 #include <vector>
 #include <string>
-#include <tuple>
+#include <algorithm>
 
 struct variabila
 {
     std::string tip;
+    std::string nume;
     std::string valoare;
 };
 

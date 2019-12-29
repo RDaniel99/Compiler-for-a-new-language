@@ -1,14 +1,23 @@
 %{
 #include <stdio.h>
-#define YYSTYPE char const *
+#include <iostream>
 
 #include "Messages.h"
 #include "StackMemory.h"
 
 
+
 extern FILE* yyin;
+
 extern char* yytext;
 extern int yylineno;
+
+extern int yylex (void);
+
+int yyerror(char * s){
+printf("eroare: %s la linia:%d\n",s,yylineno);
+}
+
 %}
 
 %token BEG AND OR NOT DEF LR GR LRE GRE END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE ID VOID_TYPE INT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE BOOL_VALUE STRING_VALUE INT_VALUE CHAR_VALUE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
@@ -53,6 +62,12 @@ lista_variabile_declarare: variabila_tip{printf("ultima variabila de pe linia %d
 
 
 variabila_tip: ID':'tip
+               {
+                    std::cout<<"$$= "<<$$<<"\n";
+                    std::cout<<"$0= "<<$0<<"\n";
+                    std::cout<<"$1= "<<$1<<"\n";
+                    std::cout<<"$2= "<<$2<<"\n";
+               }
          ;
 
 
@@ -147,12 +162,10 @@ cod_main: EMPTY
 
 
 %%
-int yyerror(char * s){
-printf("eroare: %s la linia:%d\n",s,yylineno);
-}
 
 
-///StackMemory memory;
+
+StackMemory memory;
 
 int main(int argc, char** argv){
 yyin=fopen(argv[1],"r");

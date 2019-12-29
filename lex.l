@@ -8,8 +8,11 @@
 "/\*(.|\n)+\*/" ; 
 
 "begin" {return BEG;}
+"def"   {return DEF;}
 "end"   {return END;}
+"Let"   {return LET;}
 "Define" {return DEFINE;}
+"Class"  {return CLASS;}
 "Array" {return ARRAY_TYPE;}
 "Int" {return INT_TYPE;}
 "Bool" {return BOOL_TYPE;}

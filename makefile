@@ -1,7 +1,7 @@
 clean:
 	lex lex.l
 	yacc -d yacc.y
-	g++ Memory.cpp y.tab.c lex.yy.c -ll -ly -o exec
+	gcc  y.tab.c lex.yy.c -ll -ly -o exec
 	rm lex.yy.c
 	rm y.tab.c
 	rm y.tab.h

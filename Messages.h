@@ -1,5 +1,3 @@
-#pragma once
-
 // Folosire a ceva nedeclarat/declarat anterior
 #define M_ERROR_EXISTS_FUNC \
 printf("Error: Functia a fost deja definita anterior!\n");

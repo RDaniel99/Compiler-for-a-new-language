@@ -30,21 +30,51 @@ bool Memory::Declarare(variabila v)
 
 bool Memory::Exista(functie f, int &pos)
 {
-    if(std::find(functii.begin(), functii.end(), f) != functii.end())
-        return true;
+    pos = -1;
+    for(unsigned int i = 0; i < functii.size(); i++)
+    {
+        functie x;
+        x.nume = functii[i].nume;
+        x.parametrii = functii[i].parametrii;
+        x.returnType = functii[i].returnType;
+
+        if(x.nume == f.nume && x.returnType == f.returnType)
+        {
+            bool ok = x.parametrii.size() == f.parametrii.size();
+            for(unsigned int j = 0; ok && j < x.parametrii.size(); j++)
+                if(x.parametrii[j].tip != f.parametrii[j].tip ||
+                    x.parametrii[j].nume != f.parametrii[j].nume)
+                    ok = false;
+
+            if(ok)
+            {
+                pos = i;
+                return true;
+            }
+        }
     
+    }
     return false;
 }
 
 bool Memory::Exista(variabila v, int &pos)
 {
-    for(auto x: variabile)
-        if(x.nume == v.nume)
+    pos = -1;
+    for(unsigned int i = 0; i < variabile.size(); i++)
+    {
+        variabila x;
+        x.nume = variabile[i].nume;
+        x.tip = variabile[i].tip;
+        x.valoare = variabile[i].valoare;
+
+        if(x.nume == v.nume && x.tip == v.tip && x.valoare == v.valoare)
         {
-            v = x;
+            pos = i;
             return true;
         }
     
+    }
+
     return false;
 }
 
@@ -64,7 +94,9 @@ bool Memory::Modifica(variabila v)
     if(!Exista(v, poz))
         return false;
 
-    variabile[poz] = v;
+    variabile[poz].nume = v.nume;
+    variabile[poz].tip = v.tip;
+    variabile[poz].valoare = v.valoare;
 
     return false;
 }

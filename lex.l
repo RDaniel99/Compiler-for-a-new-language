@@ -8,6 +8,7 @@
 "/\*(.|\n)+\*/" ; 
 
 "begin" {return BEG;}
+"end"   {return END;}
 "Define" {return DEFINE;}
 "Array" {return ARRAY_TYPE;}
 "Int" {return INT_TYPE;}
@@ -21,7 +22,7 @@
 "while" {return WHILE;}
 
 
-"strlen" {retrun STRLEN_FUNC;}
+"strlen" {return STRLEN_FUNC;}
 "eval" {return EVAL_FUNC;}
 
 "True"|"False" {return BOOL_VALUE;}

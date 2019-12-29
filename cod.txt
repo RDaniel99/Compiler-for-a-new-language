@@ -8,10 +8,27 @@ end
 
 Class test
 begin
+    def f(x:Int):Int
+    begin
 
+    end
+    Class test2
+    begin
+        def f(x:Int):Int
+        begin
+
+        end
+    end
 end
 
 
 begin
+
+    Let x:Int;
+    for
+    begin
+        Let x:Int;
+    end
+    f(1,2,3);
 
 end

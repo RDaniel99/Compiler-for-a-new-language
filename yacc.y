@@ -10,10 +10,10 @@ extern int yylineno;
 %start start
 %%
 
-start: declaratii BEG cod_main END declaratii {printf("Corect\n");}
+start: declaratii BEG cod_main END declaratii  {printf("Corect\n");}
      | BEG cod_main END declaratii             {printf("Corect\n");}
-     | declaratii BEG cod_main END{printf("Corect\n");}
-     | BEG cod_main END{printf("Corect\n");}
+     | declaratii BEG cod_main END             {printf("Corect\n");}
+     | BEG cod_main END                        {printf("Corect\n");}
      ;
 
 declaratii: declaratie_clasa 
@@ -32,7 +32,8 @@ tip: INT_TYPE
 
 declaratie_clasa: CLASS ID BEG cod_clasa END
                 ;
-cod_clasa:
+
+cod_clasa:declaratii
          ;
 
 declaratie_variabila: LET lista_variabile_declarare ';'
@@ -48,19 +49,54 @@ variabila_tip: ID':'tip
 
 
 declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_functie END
-                  | DEF ID '('')' ':' tip BEG cod_functie END
+                  | DEF ID '('')' ':' tip BEG EMPTY END
+                  | DEF ID '('lista_variabile_declarare')' ':' tip BEG EMPTY END
+                  | DEF ID '('')' ':' tip BEG EMPTY END
                   ;
 
 
-cod_functie:
+cod_functie: declaratie_variabila 
+           | statement
+           | declaratie_variabila cod_functie
+           | statement cod_functie
            ;
 
+statement: FOR BEG cod_functie END
+         | WHILE BEG cod_functie END
+         | IF BEG cod_functie END
+         | asignare
+         | apelare 
+         ;
 
+asignare: ID '=' value';'
+        | ID '=' ID';'
+        | ID '=' apelare
+        ;
+
+apelare: ID '(' ')' ';'
+       | ID '('list_parametri')' ';'
+       ;
+
+list_parametri: parametru
+              | parametru',' list_parametri
+              ;
+parametru: value
+         | ID
+         ;
+
+value: INT_VALUE
+     | STRING_VALUE
+     | CHAR_VALUE
+     | BOOL_VALUE
+     ;
+EMPTY:
+     ; 
 TODO:    {printf("NOT IMPLEMENTED\n");}
     ;
 
 
-cod_main:
+cod_main: EMPTY
+        | cod_functie
         ;
 
 

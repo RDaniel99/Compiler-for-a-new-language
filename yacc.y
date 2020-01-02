@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include <iostream>
+#include <stdlib.h>
 
 #include "y.tab.h"
 
@@ -56,6 +57,10 @@ char*       strval;
 %type<strval> asignare
 %type<strval> apelare
 %type<strval> parametru
+%type<intval> expr
+
+%left '+' '-'
+%left '*' '/'
 
 %token<strval> BOOL_VALUE
 %token<strval> STRING_VALUE
@@ -73,6 +78,18 @@ start: declaratii BEG cod_main END';' declaratii  {printf("Corect\n");}
      | declaratii BEG cod_main END';'             {printf("Corect\n");}
      | BEG cod_main END';'                        {printf("Corect\n");}
      ;
+
+expr : expr '+' expr { $$ = $1 + $3; } 
+| expr '-' expr { $$ = $1 - $3; } 
+| expr '*' expr { $$ = $1 * $3; } 
+| expr '/' expr { $$ = $1 / $3; } 
+| '-' INT_VALUE { $$ = -atoi($2); } 
+| '-' ID { $$ = 0; } 
+| '(' expr ')' { $$ = $2; } 
+| INT_VALUE { $$ = atoi($1); } 
+| ID { $$ = 0; }; 
+;
+
 
 declaratii: declaratie_clasa';'
           | declaratie_variabila';'
@@ -236,6 +253,7 @@ classApelare: ID'.'classApelare
 
        apelare: ID '(' ')'         {strcat($$,"()");}
        | ID '('list_parametri')'   {strcat($$,"(");strcat($$,$3);strcat($$,")");}
+       | EVAL_FUNC '('expr')'      {printf("valoarea este: %d\n",$3);}
        ;
 
 

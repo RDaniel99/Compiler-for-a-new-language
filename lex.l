@@ -39,7 +39,7 @@
 
 "True"|"False" { yylval.strval=strdup(yytext); return BOOL_VALUE;}
 \"[^\"]+\" { yylval.strval=strdup(yytext); return STRING_VALUE;}
--?[1-9][0-9]*|0 {yylval.strval=strdup(yytext); return INT_VALUE;}
+[1-9][0-9]*|0 {yylval.strval=strdup(yytext); return INT_VALUE;}
 '.' {return CHAR_VALUE;}
 -?[1-9][0-9]*\.[0-9]*|-?0\.[0-9]* {
                                      yylval.strval=strdup(yytext);

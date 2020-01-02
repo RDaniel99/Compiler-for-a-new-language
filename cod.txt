@@ -1,35 +1,9 @@
 
-Let x:Int, y:Float,z:Float;
-
-Let boss:Array<Array<Void>[10]>[10];
-
-def fdddd (x:Int,y:Float):Int
 begin
 
-end;
-
-exit();
-
-
-Class test
-begin
-    def f(x:Int):Int
-    begin
-
-    end;
-
-    Class test2
-    begin
-        def f(x:Int):Int
-        begin
-
-        end;
-    end;
-
-end;
-
-
-begin
+    Let x:Array<PINT>[10];
+    x.x.x.x=2;
+    x=f.exit(1,2,x,y.z,t(),t.z());
 
     Let x:Int;
     if(False)
@@ -44,4 +18,6 @@ begin
 
     x=y.f(1,2,3);
 
-end
+end;
+
+

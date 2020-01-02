@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <iostream>
 
+#include "y.tab.h"
+
 #include "Messages.h"
 #include "StackMemory.h"
 #include "Converter.h"
@@ -24,22 +26,28 @@ extern int yylineno;
 
 extern int yylex (void);
 
+StackMemory memory;
+
 int yyerror(char * s){
 printf("eroare: %s la linia:%d\n",s,yylineno);
+return 1;
 }
 
 %}
 
 %union {
-int intval;
-char* strval;
+float       floatval;
+int         intval;
+char*       strval;
 }
 
 %token <strval> ID
 
 %token BEG AND OR NOT DEF LR GR LRE GRE END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE VOID_TYPE INT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE BOOL_VALUE STRING_VALUE INT_VALUE CHAR_VALUE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
 
-
+%type<strval> variabila_tip
+%type<strval> lista_variabile_declarare
+%type<strval> tip
 
 %start start
 %%
@@ -66,31 +74,58 @@ tip: INT_TYPE
    | ARRAY_TYPE LR tip GR '[' INT_VALUE ']'
    ;
 
-declaratie_clasa: CLASS ID BEG cod_clasa END 
+declaratie_clasa: CLASS ID BEG cod_clasa END   { }
                 ;
 
 cod_clasa:declaratii 
          ;
 
-declaratie_variabila: LET lista_variabile_declarare
+declaratie_variabila: LET lista_variabile_declarare {printf("au fost declarate variabilele: %s\n",$2);}
                     ;
 
-lista_variabile_declarare: variabila_tip{printf("ultima variabila de pe linia %d  declarata\n",yylineno);}
-               | variabila_tip ',' lista_variabile_declarare {printf("variabila declarata pe linia %d\n",yylineno);}
+lista_variabile_declarare: variabila_tip 
+                         {
+                         }
+               | variabila_tip ',' lista_variabile_declarare 
+               {
+                    char aux[]=",";
+                    strcat($$,aux);
+                    strcat($$,$3);                    
+               }
                ;
 
 
 variabila_tip: ID':'tip
                {
-                    std::cout << $1 <<" Declarata" <<'\n';
+                    variabila v;
+                    v.nume    = std::string($1);
+                    v.tip     = std::string($3);
+                    v.valoare = "";
+                    ///DECLARARE TODO
+                    printf("variabila %s de tipul %s declarata\n",$1,$3);
                }
          ;
 
-
-declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_functie END
-                  | DEF ID '('')' ':' tip BEG EMPTY END
-                  | DEF ID '('lista_variabile_declarare')' ':' tip BEG EMPTY END
-                  | DEF ID '('')' ':' tip BEG cod_functie END
+declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_functie END 
+                  { 
+                       ///DECLARARE TODO
+                       printf("functia %s declarata\n",$2);
+                  }
+                  | DEF ID '('')' ':' tip BEG EMPTY END                                
+                  {
+                         ///DECLARARE TODO
+                        printf("functia %s declarata\n",$2);
+                  }
+                  | DEF ID '('lista_variabile_declarare')' ':' tip BEG EMPTY END       
+                  { 
+                          ///DECLARARE TODO
+                       printf("functia %s declarata\n",$2);
+                  }
+                  | DEF ID '('')' ':' tip BEG cod_functie END                          
+                  { 
+                     ///DECLARARE TODO
+                       printf("functia %s declarata\n",$2);
+                  }
                   ;
 
 
@@ -134,18 +169,27 @@ logical_operator: AND
                 ;
 
 
-asignare: ID '=' value {std::cout<<$1<<"asignare\n";}
-        | ID '=' ID
-        | ID '=' apelare
-        | ID '=' classContent
+asignare: ID '=' value                       {    }
+        | ID '=' ID                          {    }
+        | ID '=' apelare                     {    }
+        | ID '=' classApelare                {    }
+        | ID '=' classContent                {    }
+        | classContent '=' value             {    }
+        | classContent '=' ID                {    }
+        | classContent '=' apelare           {    }
+        | classContent '=' classApelare      {    }
+        | classContent '=' classContent      {    }
         ;
+
 
 
 classContent: ID'.'ID
             | ID'.'classContent
-            | ID'.'apelare
             ;
 
+classApelare: ID'.'classContent
+            | ID'.'apelare
+            ;
 
        apelare: ID '(' ')'           
        | ID '('list_parametri')'
@@ -179,9 +223,7 @@ cod_main: EMPTY
 
 %%
 
-
-StackMemory memory;
-#include <iostream>
+#include <iostream>  
 
 int main(int argc, char** argv){
 

@@ -1,13 +1,14 @@
 
 Let x:Int, y:Float,z:Float;
 
-Let X:Array<Array<Void>[10]>[10];
+Let boss:Array<Array<Void>[10]>[10];
 
-def f(x:Int,y:Float):Int
+def fdddd (x:Int,y:Float):Int
 begin
 
 end;
 
+exit();
 
 
 Class test

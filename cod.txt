@@ -3,6 +3,7 @@ begin
     Let elClasa1:Int;
     Let elClasa2:Int;
     Let elClasa3:Int;
+    Let elClasa4:Int;
     
     def f(x:Int,y:Char):Int
     begin
@@ -13,8 +14,10 @@ endClass;
 
 def main():Int
 begin
-    Let x:abc;
-    
+    Let x:abc,y:Int,z:Int;
+    x.elClasa1=1;
+    x.elClasa3=3;
+    x.elClasa4=4;
 endDef;
 
 

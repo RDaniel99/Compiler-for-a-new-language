@@ -88,13 +88,10 @@ bool Memory::Exista(clasa c, int &pos)
 {
     pos = -1;
 
-    cout<<"cautare clasa "<<c.nume<<"\n";
     for(unsigned int i = 0; i < clase.size(); i++)
     {
-        cout<<c.nume<<" "<<clase[i].nume<<"\n";
         if(clase[i].nume == c.nume)
         {
-            cout<<"clasa gasita\n";
             pos = i;
             return true;
         }

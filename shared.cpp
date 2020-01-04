@@ -191,6 +191,8 @@ bool modifica(variabila& v)
 
 bool appendToClass(clasa c, variabila v)
 {
+    int auxx;
+    std::cin>>auxx;
 
     for(int i = memory.stck.size() - 1; i >= 0; --i)
     {

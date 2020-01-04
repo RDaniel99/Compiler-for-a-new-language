@@ -69,7 +69,7 @@ int aux2=0;
                            c.functii.clear();
                            
                             if(adaugaClasa(c))
-                                 {printf("Clasa %s a fost adaugata.\n", yytext);printTable();}
+                                 {printf("Clasa %s a fost adaugata.\n", yytext);}
                            else
                            {
                                  printf("Clasa %s n-a fost adaugata.\n", yytext);

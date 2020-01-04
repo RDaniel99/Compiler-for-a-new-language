@@ -146,8 +146,12 @@ lista_variabile_declarare: variabila_tip
 
 variabila_tip: ID':'tip
                {
+                    printTable();
+                    int auxiliarus;
+                    std::cin>>auxiliarus;
+                    
                     clasa c;
-                    c.nume=std::string(GetCurrentClassName());
+                    c.nume=std::string($3);
 
                     if(GetCurrentClassName())
                          std::cout<<"clasa: "<<GetCurrentClassName()<<"\n";
@@ -362,6 +366,7 @@ logical_operator: AND
 ///TODO: de verificat tipurile si daca ID este valid
 asignare: ID '=' value                       
           {
+               
                printf(" 1 | %s<-%s\n",$1,$3);
                variabila v;
                v.nume = std::string($1);
@@ -568,7 +573,5 @@ std::cout<<"123\n";
 
 yyin=fopen(argv[1],"r");
 yyparse();
-
-memory.PrintTable();
 } 
 

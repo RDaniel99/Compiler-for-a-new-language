@@ -115,7 +115,7 @@ declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS   { }
 cod_clasa:declaratii 
          ;
 
-declaratie_variabila: LET lista_variabile_declarare {printf("au fost declarate variabilele: %s\n",$2);}
+declaratie_variabila: LET lista_variabile_declarare 
                     ;
 
 lista_variabile_declarare: variabila_tip 
@@ -133,16 +133,32 @@ lista_variabile_declarare: variabila_tip
 
 variabila_tip: ID':'tip
                {
+                    if(GetCurrentClassName())
+                         std::cout<<"clasa: "<<GetCurrentClassName()<<"\n";
+                    if(GetCurrentFunctionName())
+                         std::cout<<"\n functia: "<<GetCurrentFunctionName()<<"\n";
+
+                    std::string pre="";
+                    if(GetIsInClass())
+                    {
+                         if(GetIsInFunction()==0)
+                         {
+                              pre=std::string(GetCurrentClassName())+std::string("::");
+                         }
+                    }
+               
                     char* aux =(char*) malloc(1024);
                     sprintf(aux,"%s:%s",$$,$3);
                     $$=aux;
                     
                     variabila v;
-                    v.nume    = std::string($1);
+                    v.nume    = pre+std::string($1);
                     v.tip     = std::string($3);
                     v.valoare = "";
                     if(adaugaVar(v))
-                         printf("variabila %s de tipul %s declarata\n",$1,$3);
+                    {
+                         printf("variabila %s de tipul %s declarata\n",v.nume.c_str(),$3);
+                    }
                     else
                     {
                          printf("variabila %s de tipul %s a fost declarata anterior\n", $1, $3);
@@ -155,8 +171,15 @@ variabila_tip: ID':'tip
 
 declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_functie ENDDEF 
                   { 
+                       std::string pre;
+                       if(GetIsInClass())
+                       {
+                            pre=std::string( GetCurrentClassName());
+                            pre=pre+std::string(".");
+                       }
+
                        functie f;
-                       f.nume = std::string($2);
+                       f.nume = pre+std::string($2);
                        f.returnType = std::string($7);
                        adaugaParams(f, std::string($4));
                        if(adaugaFunc(f))
@@ -170,8 +193,14 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                   }
                   | DEF ID '('')' ':' tip BEG EMPTY ENDDEF                                
                   {
+                       std::string pre;
+                       if(GetIsInClass())
+                       {
+                            pre=std::string( GetCurrentClassName() );
+                            pre=pre+std::string(".");                       }
+
                        functie f;
-                       f.nume = std::string($2);
+                       f.nume = pre+std::string($2);
                        f.returnType = std::string($6);
                        f.parametrii.clear();
                        if(adaugaFunc(f))
@@ -185,8 +214,16 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                   }
                   | DEF ID '('lista_variabile_declarare')' ':' tip BEG EMPTY ENDDEF       
                   { 
+                       std::string pre;
+                       if(GetIsInClass())
+                       {
+                            pre=std::string( GetCurrentClassName() );
+                            pre=pre+std::string(".");                     
+                       }
+
                        functie f;
-                       f.nume = std::string($2);
+                       f.nume = pre+std::string($2);
+
                        f.returnType = std::string($7);
                        adaugaParams(f, std::string($4));
                        if(adaugaFunc(f))
@@ -200,8 +237,16 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                   }
                   | DEF ID '('')' ':' tip BEG cod_functie ENDDEF                          
                   { 
+                       std::string pre;
+                       if(GetIsInClass())
+                       {
+                            pre=std::string( GetCurrentClassName() );
+                            pre=pre+std::string(".");
+                       }
+
                        functie f;
-                       f.nume = std::string($2);
+                       f.nume = pre+std::string($2);
+
                        f.returnType = std::string($6);
                        f.parametrii.clear();
                        if(adaugaFunc(f))

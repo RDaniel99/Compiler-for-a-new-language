@@ -18,7 +18,9 @@ def main():Int
 begin
 
     Let kaka:Int;
-    Let x:Array<PINT>[10];
+    Let x:Array<Int>[10];
+    Let kaka2:Int;
+    kaka=kaka2;
     x.x.x.x=2;
     x=f.exit(1,2,x,y.z,t(),t.z());
 

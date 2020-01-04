@@ -106,10 +106,38 @@ tip: INT_TYPE                                     {$$="INT";}
    | class_type                                   {$$=$1;}
    ;
 
-class_type: ID {$$=$1; printf("de verificat daca exista clasa \n");}
+class_type: ID 
+               {
+                    $$=$1; 
+                    clasa c;
+                    c.nume = std::string($1);
+                    if(existaClasa(c))
+                         printf("Clasa %s a fost gasita.\n");
+                    else
+                    {
+                         M_ERROR_NOT_EXISTS_CLASS
+                         exit(0);
+                    }
+               }
           ;
 
-declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS   { }
+declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS   
+               { 
+                    clasa c;
+                    c.nume = std::string($2);
+                    c.membrii.clear();
+                    c.functii.clear();
+
+                    // To do: de adaugat membrii si functii
+                    if(adaugaClasa(c))
+                         printf("Clasa %s a fost adaugata.\n", $2);
+                    else
+                    {
+                         printf("Clasa %s n-a fost adaugata.\n", $2);
+                         M_ERROR_EXISTS_CLASS
+                         exit(0);
+                    }
+               }
                 ;
 
 cod_clasa:declaratii 
@@ -148,7 +176,7 @@ variabila_tip: ID':'tip
                          printf("variabila %s de tipul %s a fost declarata anterior\n", $1, $3);
                          M_ERROR_EXISTS_VAR
                          exit(0);
-                         
+
                     }
                }
          ;
@@ -260,7 +288,26 @@ logical_operator: AND
 
 ///TODO: de verificat tipurile si daca ID este valid
 asignare: ID '=' value                       {printf(" 1 | %s<-%s\n",$1,$3);}
-        | ID '=' ID                          {printf(" 2 | %s<-%s\n",$1,$3);}
+        | ID '=' ID                          
+          {
+             printf(" 2 | %s<-%s\n",$1,$3);
+             variabila v1;
+             variabila v2;
+             v1.nume = std::string($1);
+             v2.nume = std::string($3);
+             if(existaVar(v1) && existaVar(v2))
+             {
+                  if(v1.tip == v2.tip && v2.valoare != "")
+                  {
+                       printf("Asignare corecta\n");
+                  }
+                  else
+                  {
+                       printf("Asignare gresita!!!\n");
+                       exit(0);
+                  }
+             }
+          }
         | ID '=' apelare                     {printf(" 3 | %s<-%s\n",$1,$3);}
         | ID '=' classApelare                {printf(" 4 | %s<-%s\n",$1,$3);}
         | ID '=' classContent                {printf(" 5 | %s<-%s\n",$1,$3);}

@@ -9,12 +9,14 @@ public:
 
     bool Exista(variabila v, variabila& rez);
     bool Exista(functie f, functie& rez);
+    bool Exista(clasa c, clasa& rez);
 
     bool AdaugaMemorie();
     bool EliminaMemorie();
 
     bool AdaugaVariabila(variabila v);
     bool AdaugaFunctie(functie f);
+    bool AdaugaClasa(clasa c);
 
     bool PrintTable();
 

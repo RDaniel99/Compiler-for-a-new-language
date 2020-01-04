@@ -121,20 +121,7 @@ class_type: ID
 
 declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS   
                { 
-                    clasa c;
-                    c.nume = std::string($2);
-                    c.membrii.clear();
-                    c.functii.clear();
-
-                    // To do: de adaugat membrii si functii
-                    if(adaugaClasa(c))
-                         printf("Clasa %s a fost adaugata.\n", $2);
-                    else
-                    {
-                         printf("Clasa %s n-a fost adaugata.\n", $2);
-                         M_ERROR_EXISTS_CLASS
-                         exit(0);
-                    }
+                   
                }
                 ;
 
@@ -159,7 +146,6 @@ lista_variabile_declarare: variabila_tip
 
 variabila_tip: ID':'tip
                {
-
                     clasa c;
                     c.nume=std::string($3);
 
@@ -175,28 +161,33 @@ variabila_tip: ID':'tip
                          if(GetIsInFunction()==0)
                          {
                               variabila v;
-                              v.nume    = pre+std::string($1);
+                              v.nume    = std::string($1);
                               v.tip     = std::string($3);
                               v.valoare = "";
-                              
-                              addToClass(c,v);
-                              
+
+                              std::cout<<v.nume<<" "<<v.tip<<"\n";
+                              std::cout<<"REZULTAT APPEND:"<<appendToClass(c,v)<<"\n";
+
                               pre=std::string(GetCurrentClassName())+std::string("::");
                          }
                     }
 
                     if(existaClasa(c))
                     {
-                         std::cout<<"Clasa a fost gasita v2\nVARIABILE:\n";
+                         std::cout<<"clasa "<<c.nume<<"\nVARIABILE:\n";
      
                          for (auto var:c.membrii)
                          {
                               std::cout<<var.nume<<"\n";
+                              var.nume=std::string($1)+std::string(".")+var.nume;
+                              adaugaVar(var);
                          }
                          std::cout<<"FUNCTII:\n";
                          for (auto fun:c.functii)
                          {
                               std::cout<<fun.nume<<"\n";
+                              fun.nume=std::string($1)+std::string(".")+fun.nume;
+                              adaugaFunc(fun);
                          }
                          
                     }

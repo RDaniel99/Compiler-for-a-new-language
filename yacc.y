@@ -148,6 +148,7 @@ variabila_tip: ID':'tip
                          printf("variabila %s de tipul %s a fost declarata anterior\n", $1, $3);
                          M_ERROR_EXISTS_VAR
                          exit(0);
+                         
                     }
                }
          ;

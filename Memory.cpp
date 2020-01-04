@@ -53,7 +53,7 @@ bool Memory::Exista(functie f, int &pos)
 
         if(x.nume == f.nume && ((f.returnType.size() && x.returnType == f.returnType) || f.returnType.size() == 0))
         {
-            bool ok = x.parametrii.size() == f.parametrii.size();
+            bool ok = (x.parametrii.size() == f.parametrii.size());
             for(unsigned int j = 0; ok && j < x.parametrii.size(); j++)
                 if(x.parametrii[j].tip != f.parametrii[j].tip)
                     ok = false;

@@ -10,3 +10,9 @@ char* GetCurrentFunctionName();
 
 void SetMemory(StackMemory memory_);
 StackMemory getMemory();
+
+bool adaugaVar(variabila v);
+bool adaugaFunc(functie f);
+
+bool adaugaMem();
+bool scoateMem();

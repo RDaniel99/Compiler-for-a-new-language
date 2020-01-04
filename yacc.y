@@ -141,8 +141,10 @@ variabila_tip: ID':'tip
                     v.nume    = std::string($1);
                     v.tip     = std::string($3);
                     v.valoare = "";
-                    ///DECLARARE TODO
-                    printf("variabila %s de tipul %s declarata\n",$1,$3);
+                    if(adaugaVar(v))
+                         printf("variabila %s de tipul %s declarata\n",$1,$3);
+                    else
+                         printf("variabila %s de tipul %s a fost declarata anterior\n", $1, $3);
                }
          ;
 

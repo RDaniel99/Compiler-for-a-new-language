@@ -13,9 +13,12 @@ public:
     bool AdaugaMemorie();
     bool EliminaMemorie();
 
+    bool AdaugaVariabila(variabila v);
+    bool AdaugaFunctie(functie f);
+
     bool PrintTable();
 
     std::vector<Memory> stck;
 };
 
-#endif H_STACKMEMORY
+#endif //H_STACKMEMORY

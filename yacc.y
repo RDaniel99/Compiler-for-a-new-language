@@ -111,9 +111,7 @@ class_type: ID
                     $$=$1; 
                     clasa c;
                     c.nume = std::string($1);
-                    if(existaClasa(c))
-                         printf("Clasa %s a fost gasita.\n");
-                    else
+                    if(!existaClasa(c))
                     {
                          M_ERROR_NOT_EXISTS_CLASS
                          exit(0);
@@ -167,6 +165,7 @@ variabila_tip: ID':'tip
                          std::cout<<"\n functia: "<<GetCurrentFunctionName()<<"\n";
 
                     std::string pre="";
+
                     if(GetIsInClass())
                     {
                          if(GetIsInFunction()==0)
@@ -174,10 +173,18 @@ variabila_tip: ID':'tip
                               pre=std::string(GetCurrentClassName())+std::string("::");
                          }
                     }
+
+                    clasa c;
+                    c.nume=std::string($3);
+                    std::cout<<"NUME CLASA: "<<c.nume<<"\n";
+                    if(existaClasa(c))
+                    {
+                         std::cout<<"Clasa a fost gasita v2\n";
+                    }
                
-                    char* aux =(char*) malloc(1024);
+                    char aux[1024];
                     sprintf(aux,"%s:%s",$$,$3);
-                    $$=aux;
+                    $$=strdup(aux);
                     
                     variabila v;
                     v.nume    = pre+std::string($1);
@@ -539,5 +546,7 @@ std::cout<<"123\n";
 
 yyin=fopen(argv[1],"r");
 yyparse();
+
+memory.PrintTable();
 } 
 

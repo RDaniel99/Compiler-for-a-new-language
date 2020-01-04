@@ -26,14 +26,17 @@ def main():Int
 begin
     Let char2:Char;
     Let kaka:Int;
-    kaka=f(kaka,char2,char2);
+
+    
     Let x:Array<Int>[10];
     Let kaka2:Int;
     kaka2=12;
     kaka=kaka2;
     Let kaka3:Int;
     kaka3=kaka;
-    x.x.x.x=2;
+
+    Let testClasa:abc;
+    abc.f(kaka,char2);
 
     eval((x+y+z)*2+2/2-1-1);
 

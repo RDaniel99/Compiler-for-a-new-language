@@ -8,9 +8,9 @@
 
 "/\*(.|\n)+\*/" ; 
 
-"endDef" {return ENDDEF;}
-"begin" {printf("BEGIN FOUND\n"); return BEG;}
-"def"   {return DEF;}
+"endDef" {scoateMem(); return ENDDEF; }
+"begin" {printf("BEGIN FOUND\n"); return BEG; }
+"def"   {adaugaMem(); return DEF;}
 "end"   {printf("END FOUND\n"); return END;}
 "And"   {return AND;}
 "Or"    {return OR;}

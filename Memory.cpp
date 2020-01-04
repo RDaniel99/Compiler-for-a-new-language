@@ -26,6 +26,8 @@ bool Memory::Declarare(variabila v)
         return false;
 
     variabile.push_back(v);
+
+    return true;
 }
 
 bool Memory::Exista(functie f, int &pos)
@@ -60,14 +62,10 @@ bool Memory::Exista(functie f, int &pos)
 bool Memory::Exista(variabila v, int &pos)
 {
     pos = -1;
+
     for(unsigned int i = 0; i < variabile.size(); i++)
     {
-        variabila x;
-        x.nume = variabile[i].nume;
-        x.tip = variabile[i].tip;
-        x.valoare = variabile[i].valoare;
-
-        if(x.nume == v.nume && x.tip == v.tip && x.valoare == v.valoare)
+        if(variabile[i].nume == v.nume)
         {
             pos = i;
             return true;

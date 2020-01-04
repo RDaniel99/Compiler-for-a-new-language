@@ -49,6 +49,22 @@ bool StackMemory::EliminaMemorie()
     return true;
 }
 
+bool StackMemory::AdaugaVariabila(variabila v)
+{
+    if(stck.size() == 0)
+        return false;
+
+    return stck[stck.size() - 1].Declarare(v);
+}
+
+bool StackMemory::AdaugaFunctie(functie f)
+{
+    if(stck.size() == 0)
+        return false;
+
+    return stck[stck.size() - 1].Declarare(f);
+}
+
 bool StackMemory::PrintTable()
 {
     ofstream fout("symbol_table.txt");

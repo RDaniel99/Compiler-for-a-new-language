@@ -13,9 +13,9 @@ int aux2=0;
 "/\*(.|\n)+\*/" ; 
 
 "endDef"   {SetIsInFunction(false); SetCurrentFunctionName(nullptr); scoateMem(); return ENDDEF;   }
-"endClass" {SetIsInClass(false);    SetCurrentClassName(nullptr);                 return ENDCLASS; }
+"endClass" {SetIsInClass(false);    SetCurrentClassName(nullptr);               return ENDCLASS; }
 
-"begin" { if(aux==0&&aux2==0) adaugaMem();return BEG;}
+"begin" { if(aux==2 || aux2==2) {aux=0;aux2=0;}else{adaugaMem(); std::cout<<"Memorie noua la linia "<<yylineno<<"\n";}return BEG;}
 "end"   { scoateMem(); return END;}
 "def"   {SetIsInFunction(true);aux=1;adaugaMem(); return DEF;}
 "And"   {return AND;}
@@ -55,15 +55,15 @@ int aux2=0;
 
 [A-Za-z][A-Za-z0-9]* {
                         yylval.strval=strdup(yytext);
-                        if(GetIsInFunction()&&aux==1)
+                        if(GetIsInFunction()==true && aux==1)
                         {
                            SetCurrentFunctionName(yytext);
-                           aux=0;
+                           aux=2;
                         }
-                        if(GetIsInClass()&&aux2==1)
+                        if(GetIsInClass()==true && aux2==1)
                         {
                            SetCurrentClassName(yytext);
-                           aux2=0;
+                           aux2=2;
                         }
                         return ID;
                      }

@@ -130,41 +130,32 @@ bool Memory::Modifica(variabila v)
     return false;
 }
 
-bool Memory::PrintTable()
+bool Memory::PrintTable(ofstream& fout)
 {
-    ofstream fout("symbol_table.txt");
-
-    fout << variabile.size() << '\n';
-
+    fout << "Total variabile: " << variabile.size() << '\n';
     for(auto x: variabile)
-        fout << x.tip << ' ' << x.nume << ' ' << x.valoare << '\n';
-
+        fout << "--Tip variabila: " << x.tip << " , nume variabila: " << x.nume << " valoare variabila: " << x.valoare << '\n';
     fout << '\n' << '\n';
-
-    fout << functii.size() << '\n';
-
+    fout << "Total functii: " << functii.size() << '\n';
     for(auto x: functii)
     {
-        fout << x.returnType << ' ' << x.nume << ' ' << x.parametrii.size() << '\n';
-
+        fout << "--ReturnType: " << x.returnType << " , Nume fct: " << x.nume << " , total params: " << x.parametrii.size() << '\n';
         for(auto y: x.parametrii)
-            fout << y.tip << ' ' << y.nume << ' ' << y.valoare << '\n';
-
+            fout << "----tip param: " << y.tip << " nume param: " << y.nume << " valoare param: " << y.valoare << '\n';
         fout << '\n';
     }
-
+    fout << '\n' << '\n';
+    fout << "Total clase: " << clase.size() << '\n';
     for(auto x: clase)
     {
-        fout << x.nume << '\n';
-
-        for(auto f: x.functii)
+        fout << "--Nume clasa: " << x.nume << " total membrii: " << x.membrii.size() << " total fct: " << x.functii.size() << '\n';
+        for(auto y: x.membrii)
+            fout << "----tip membru: " << y.tip << " nume membru: " << y.nume << " valoare membru: " << y.valoare << '\n';
+        for(auto y: x.functii)
         {
-            fout << f.returnType << ' ' << f.nume << ' ' << f.parametrii.size() << '\n';
-
-            for(auto p: f.parametrii)
-                fout << p.tip << ' ' << p.nume << ' ' << p.valoare << '\n';
-
-            fout << '\n';
+            fout << "----ReturnType: " << y.returnType << " , Nume fct: " << y.nume << " , total params: " << y.parametrii.size() << '\n';
+            for(auto z: y.parametrii)
+                fout << "------tip param: " << z.tip << " nume param: " << z.nume << " valoare param: " << z.valoare << '\n';
         }
     }
 

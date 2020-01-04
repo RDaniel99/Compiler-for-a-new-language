@@ -8,6 +8,12 @@ def f(x:Int,y:Char,z:Char):Int
 begin
 endDef;
 
+Class abc
+begin
+    Let x:Int;
+endClass;
+
+
 def main():Int
 begin
 

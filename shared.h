@@ -6,6 +6,12 @@
 void SetIsInFunction(bool b);
 bool GetIsInFunction();
 
+void SetIsInClass(bool b);
+bool GetIsInClass();
+
+void SetCurrentClassName(char* name);
+void GetCurrentClassName();
+
 void SetCurrentFunctionName(char* fName);
 char* GetCurrentFunctionName();
 

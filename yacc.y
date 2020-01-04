@@ -28,9 +28,7 @@ extern int yylineno;
 
 extern int yylex (void);
 
-extern StackMemory memory;
-extern bool        isInFunction;
-extern char*       currentFunctionName;
+
 
 int yyerror(char * s){
 printf("eroare: %s la linia:%d\n",s,yylineno);
@@ -76,10 +74,7 @@ char*       strval;
 
 
 
-start: declaratii BEG cod_main END';' declaratii  {printf("Corect\n");}
-     | BEG cod_main END';' declaratii             {printf("Corect\n");}
-     | declaratii BEG cod_main END';'             {printf("Corect\n");}
-     | BEG cod_main END';'                        {printf("Corect\n");}
+start: declaratii
      ;
 
 expr : expr '+' expr { $$ = $1 + $3; } 
@@ -292,7 +287,8 @@ cod_main: EMPTY
 #include <iostream>  
 
 int main(int argc, char** argv){
-isInFunction=false;
+SetIsInFunction(False);
+SetCurrentFunctionName(
 currentFunctionName=0;
 
 yyin=fopen(argv[1],"r");

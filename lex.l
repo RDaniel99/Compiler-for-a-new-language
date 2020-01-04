@@ -11,9 +11,9 @@ extern char*       currentFunctionName;
 
 "/\*(.|\n)+\*/" ; 
 
-"endDef" {return ENDDEF; isInFunction=false}
+"endDef" {return ENDDEF; SetIsInFunction(false);}
 "begin" {printf("BEGIN FOUND\n"); return BEG;}
-"def"   {return DEF; isInFunction=true;}
+"def"   {return DEF; SetIsInFunction(true);}
 "end"   {printf("END FOUND\n"); return END;}
 "And"   {return AND;}
 "Or"    {return OR;}

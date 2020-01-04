@@ -336,34 +336,13 @@ asignare: ID '=' value
                printf(" 1 | %s<-%s\n",$1,$3);
                variabila v;
                v.nume = std::string($1);
-               variabila v2=v;
-               if(GetIsInClass()==true)
-               {
-                    v2.nume=std::string(GetCurrentClassName())+std::string("::")+v.nume;
-               }
                if(existaVar(v))
                {
-                    std::cout<<"GASIT1\n";
                     v.valoare = std::string($3);
-                    if(GetIsInFunction()==false)
-                         {
-                              modifica(v);
-                              printf("Noua valoare pt %s este: %s\n", v.nume.c_str(), v.valoare.c_str());
-                         }
-               }
-               else if(existaVar(v2))
-               {
-                    std::cout<<"GASIT2\n";
-                    v2.valoare = std::string($3);
-                    if(GetIsInFunction()==false)
-                         {
-                              modifica(v2);
-                              printf("Noua valoare pt %s este: %s\n", v2.nume.c_str(), v2.valoare.c_str());
-                         }
+                    modifica(v);
                }
                else
                {
-                    std::cout<<"NEGASIT\n";
                     M_ERROR_NOT_EXISTS_VAR
                     exit(0);
                }
@@ -493,6 +472,9 @@ apelare: ID '(' ')'
             f.nume = std::string($1);
             f.returnType = "";
             f.parametrii.clear();
+            printf("Params: %s\n", $3);
+            checkParams(f, std::string($3));
+            printf("up here\n");
             if(existaFunc(f))
             {
                  printf("Apel corect al functiei cu params\n");

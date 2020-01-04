@@ -116,6 +116,36 @@ bool GetIsInClass()
     return isInClass;
 }
 
+bool checkParams(functie &f, std::string params)
+{
+    variabila p;
+    p.nume = "";
+    params += ',';
+    for(int i = 0; i < params.size(); i++)
+    {
+        if(params[i] == ',')
+        {
+            if(existaVar(p))
+            {   
+                f.parametrii.push_back(p);
+            }
+            else
+            {
+                return false;
+            }
+
+            p.nume = "";   
+        }
+        else
+        {
+            p.nume += params[i];
+        }
+        
+    }
+
+    return true;
+}
+
 bool adaugaParams(functie &f, std::string params)
 {
     variabila p;

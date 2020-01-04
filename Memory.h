@@ -5,6 +5,7 @@
 #include <fstream>
 #include <cstring>
 
+
 struct variabila
 {
     std::string tip;

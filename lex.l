@@ -63,6 +63,19 @@ int aux2=0;
                         if(GetIsInClass()==true && aux2==1)
                         {
                            SetCurrentClassName(yytext);
+                           clasa c;
+                           c.nume = std::string(yytext);
+                           c.membrii.clear();
+                           c.functii.clear();
+                           
+                            if(adaugaClasa(c))
+                                 {printf("Clasa %s a fost adaugata.\n", yytext);printTable();}
+                           else
+                           {
+                                 printf("Clasa %s n-a fost adaugata.\n", yytext);
+                                 exit(0);
+                           }
+
                            aux2=2;
                         }
                         return ID;

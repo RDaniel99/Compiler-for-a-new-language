@@ -11,9 +11,9 @@ endDef;
 
 Class abc
 begin
-    Let asbvasdfas:Int;
-    Let asbvaasdasdsdfas:Int;
-    Let asbvasdasdfas:Int;
+    Let elClasa1:Int;
+    Let elClasa2:Int;
+    Let elClasa3:Int;
     
     def f(x:Int,y:Char):Int
     begin
@@ -24,6 +24,9 @@ endClass;
 
 def main():Int
 begin
+
+    Let x:abc;
+    x.f(y,z);
     Let char2:Char;
     Let kaka:Int;
 

@@ -203,3 +203,8 @@ bool appendToClass(clasa c, variabila v)
 
     return false;
 }
+
+bool printTable()
+{
+    return memory.PrintTable();
+}

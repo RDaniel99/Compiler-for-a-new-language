@@ -27,6 +27,7 @@ bool existaVar(variabila& v);
 bool existaFunc(functie& f);
 
 bool modifica(variabila& v);
+bool printTable();
 
 bool adaugaMem();
 bool scoateMem();

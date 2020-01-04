@@ -1,0 +1,15 @@
+0
+0
+
+
+2
+Int f 2
+Int x 
+Char y 
+
+Int f 3
+Int x 
+Char y 
+Char z 
+
+

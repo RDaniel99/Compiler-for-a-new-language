@@ -2,8 +2,9 @@
 
 StackMemory memory;
 bool        isInFunction;
+bool        isInClass;
 char*       currentFunctionName;
-
+char*       currentClassName;
 void SetIsInFunction(bool b)
 {
     isInFunction = b;
@@ -54,4 +55,19 @@ bool adaugaMem()
 bool scoateMem()
 {
     return memory.EliminaMemorie();
+}
+void SetCurrentClassName(char* name)
+{
+    if(name==nullptr)
+        currentClassName=0;
+    else
+        currentClassName=strdup(name);
+}
+void SetIsInClass(bool b)
+{
+    isInClass=b;
+}
+bool GetIsInClass()
+{
+    return isInClass;
 }

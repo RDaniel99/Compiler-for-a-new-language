@@ -45,7 +45,7 @@ char*       strval;
 
 %token <strval> ID
 
-%token ENDDEF BEG AND OR NOT DEF LR GR LRE GRE END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE VOID_TYPE INT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
+%token ENDDEF ENDCLASS BEG AND OR NOT DEF LR GR LRE GRE END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE VOID_TYPE INT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
 
 %type<strval> variabila_tip
 %type<strval> lista_variabile_declarare
@@ -109,7 +109,7 @@ tip: INT_TYPE                                     {$$="INT";}
 class_type: ID {$$=$1; printf("de verificat daca exista clasa \n");}
           ;
 
-declaratie_clasa: CLASS ID BEG cod_clasa END   { }
+declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS   { }
                 ;
 
 cod_clasa:declaratii 
@@ -286,12 +286,12 @@ int main(int argc, char** argv){
 
 StackMemory memory;
 SetMemory(memory);
-std::cout<<"1\n";
 SetIsInFunction(false);
-std::cout<<"1\n";
-
 SetCurrentFunctionName(nullptr);
-std::cout<<"1\n";
+std::cout<<"123\n";
+SetIsInClass(false);
+SetCurrentClassName(nullptr);
+std::cout<<"123\n";
 
 yyin=fopen(argv[1],"r");
 yyparse();

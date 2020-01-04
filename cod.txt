@@ -4,6 +4,12 @@ begin
     Let x:Int;
 endDef;
 
+Class abc
+begin
+    Let x:Int;
+endClass;
+
+
 def main():Int
 begin
 

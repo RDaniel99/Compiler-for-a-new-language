@@ -22,6 +22,7 @@ bool adaugaVar(variabila v);
 bool adaugaFunc(functie f);
 bool adaugaClasa(clasa c);
 bool appendToClass(clasa c, variabila v);
+bool appendToClass(clasa c, functie f);
 bool existaClasa(clasa& c);
 bool existaVar(variabila& v);
 bool existaFunc(functie& f);

@@ -207,6 +207,21 @@ bool appendToClass(clasa c, variabila v)
     return false;
 }
 
+bool appendToClass(clasa c, functie f)
+{
+    for(int i = memory.stck.size() - 1; i >= 0; --i)
+    {
+        int poz = -1;
+        if(memory.stck[i].Exista(c, poz))
+        {
+            memory.stck[i].clase[poz].functii.push_back(f);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool printTable()
 {
     return memory.PrintTable();

@@ -43,17 +43,7 @@ bool Memory::Declarare(variabila v)
 
 bool Memory::Exista(functie f, int &pos)
 {
-    printf("Caut %s cu return type = %s\n", f.nume.c_str(), f.returnType.c_str());
-    printf("Params: ");
-    for(int i = 0; i < f.parametrii.size(); i++)
-    {
-        printf("Tip: %s,", f.parametrii[i].tip.c_str());
-    }
-
-    printf("\nLen: %d\n", f.returnType.size());
-
     pos = -1;
-    printf("%d\n\n", functii.size());
     for(unsigned int i = 0; i < functii.size(); i++)
     {
         functie x;
@@ -61,15 +51,7 @@ bool Memory::Exista(functie f, int &pos)
         x.parametrii = functii[i].parametrii;
         x.returnType = functii[i].returnType;
 
-        printf("Compar cu %s cu return type = %s\n", x.nume.c_str(), x.returnType.c_str());
-        printf("Params: ");
-        for(int i = 0; i < x.parametrii.size(); i++)
-        {
-            printf("Tip: %s, ", x.parametrii[i].tip.c_str());
-        }
-
-        printf("\nLen: %d\n", x.returnType.size());
-        if(x.nume == f.nume && f.returnType.size()==x.returnType.size && x.returnType == f.returnType)
+        if(x.nume == f.nume && ((f.returnType.size() && x.returnType == f.returnType) || f.returnType.size() == 0))
         {
             bool ok = (x.parametrii.size() == f.parametrii.size());
             for(unsigned int j = 0; ok && j < x.parametrii.size(); j++)
@@ -79,10 +61,10 @@ bool Memory::Exista(functie f, int &pos)
             if(ok)
             {
                 pos = i;
-                printf("Am gasiiiiit!!!!!!!!!!!\n");
                 return true;
             }
         }
+        
     
     }
     return false;

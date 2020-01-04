@@ -26,7 +26,7 @@ def main():Int
 begin
     Let char2:Char;
     Let kaka:Int;
-    kaka=abc.f(kaka,char2);
+    kaka=f(kaka,char2);
     Let x:Array<Int>[10];
     Let kaka2:Int;
     kaka=kaka2;

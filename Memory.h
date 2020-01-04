@@ -22,6 +22,13 @@ struct functie
     Memory* memorieFunctie;
 };
 
+struct clasa
+{
+    std::string nume;
+    std::vector<variabila> membrii;
+    std::vector<functie> functii;
+};
+
 class Memory
 {
 public:
@@ -42,4 +49,5 @@ public:
     
     std::vector<variabila>  variabile;
     std::vector<functie>    functii; 
+    std::vector<clasa>      clase;
 };

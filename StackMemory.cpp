@@ -107,28 +107,44 @@ bool StackMemory::PrintTable()
 
     for(int i = stck.size() - 1; i >= 0; i--)
     {
-        fout << i << '\n';
+        fout << "Memoria numaru' " << i << '\n';
 
-        fout << stck[i].variabile.size() << '\n';
+        fout << "Total variabile: " << stck[i].variabile.size() << '\n';
 
         for(auto x: stck[i].variabile)
-            fout << x.tip << ' ' << x.nume << ' ' << x.valoare << '\n';
+            fout << "--Tip variabila: " << x.tip << " , nume variabila: " << x.nume << " valoare variabila: " << x.valoare << '\n';
 
         fout << '\n' << '\n';
 
-        fout << stck[i].functii.size() << '\n';
+        fout << "Total functii: " << stck[i].functii.size() << '\n';
 
         for(auto x: stck[i].functii)
         {
-            fout << x.returnType << ' ' << x.nume << ' ' << x.parametrii.size() << '\n';
+            fout << "--ReturnType: " << x.returnType << " , Nume fct: " << x.nume << " , total params: " << x.parametrii.size() << '\n';
 
             for(auto y: x.parametrii)
-                fout << y.tip << ' ' << y.nume << ' ' << y.valoare << '\n';
+                fout << "----tip param: " << y.tip << " nume param: " << y.nume << " valoare param: " << y.valoare << '\n';
 
             fout << '\n';
         }
 
-        fout << '\n';
+        fout << '\n' << '\n';
+
+        fout << "Total clase: " << stck[i].clase.size() << '\n';
+
+        for(auto x: stck[i].clase)
+        {
+            fout << "--Nume clasa: " << x.nume << " total membrii: " << x.membrii.size() << " total fct: " << x.functii.size() << '\n';
+
+            for(auto y: x.membrii)
+                fout << "----tip membru: " << y.tip << " nume membru: " << y.nume << " valoare membru: " << y.valoare << '\n';
+
+            for(auto y: x.functii)
+            {
+                fout << "----ReturnType: " << y.returnType << " , Nume fct: " << y.nume << " , total params: " << y.parametrii.size() << '\n';
+                for(auto z: y.parametrii)
+                    fout << "------tip param: " << z.tip << " nume param: " << z.nume << " valoare param: " << z.valoare << '\n';
+        }
     }
 
     return true;

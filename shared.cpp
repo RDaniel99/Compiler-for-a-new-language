@@ -200,4 +200,6 @@ bool appendToClass(clasa c, variabila v)
             return true;
         }
     }
+
+    return false;
 }

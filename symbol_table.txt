@@ -1,15 +1,20 @@
-0
-0
+Memoria numaru' 0
+Total variabile: 2
+--Tip variabila: Int , nume variabila: abc::elClasa1 valoare variabila: 
+--Tip variabila: Int , nume variabila: abc::elClasa2 valoare variabila: 
 
 
-2
-Int f 2
-Int x 
-Char y 
+Total functii: 2
+--ReturnType: Int , Nume fct: f , total params: 2
+----tip param: Int nume param: x valoare param: 
+----tip param: Char nume param: y valoare param: 
 
-Int f 3
-Int x 
-Char y 
-Char z 
+--ReturnType: Int , Nume fct: f , total params: 3
+----tip param: Int nume param: x valoare param: 
+----tip param: Char nume param: y valoare param: 
+----tip param: Char nume param: z valoare param: 
 
 
+
+Total clase: 1
+--Nume clasa: abc total membrii: 0 total fct: 0

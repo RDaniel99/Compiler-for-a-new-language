@@ -144,8 +144,11 @@ bool StackMemory::PrintTable()
                 fout << "----ReturnType: " << y.returnType << " , Nume fct: " << y.nume << " , total params: " << y.parametrii.size() << '\n';
                 for(auto z: y.parametrii)
                     fout << "------tip param: " << z.tip << " nume param: " << z.nume << " valoare param: " << z.valoare << '\n';
+            }
         }
     }
+
+    fout.close();
 
     return true;
 }

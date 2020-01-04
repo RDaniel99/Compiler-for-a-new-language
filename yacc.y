@@ -176,14 +176,14 @@ variabila_tip: ID':'tip
                     {
                          std::cout<<"clasa "<<c.nume<<"\nVARIABILE:\n";
      
-                         for (auto var:c.membrii)
+                         for (variabila var:c.membrii)
                          {
                               std::cout<<var.nume<<"\n";
                               var.nume=std::string($1)+std::string(".")+var.nume;
                               adaugaVar(var);
                          }
                          std::cout<<"FUNCTII:\n";
-                         for (auto fun:c.functii)
+                         for (functie fun:c.functii)
                          {
                               std::cout<<fun.nume<<"\n";
                               fun.nume=std::string($1)+std::string(".")+fun.nume;

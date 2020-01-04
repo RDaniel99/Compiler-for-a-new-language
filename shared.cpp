@@ -148,3 +148,8 @@ bool adaugaParams(functie &f, std::string params)
 
     return true;
 }
+
+bool modifica(variabila& v)
+{
+    memory.Modifica(v);
+}

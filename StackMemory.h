@@ -18,6 +18,8 @@ public:
     bool AdaugaFunctie(functie f);
     bool AdaugaClasa(clasa c);
 
+    bool Modifica(variabila& v);
+
     bool PrintTable();
 
     std::vector<Memory> stck;

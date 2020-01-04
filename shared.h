@@ -25,6 +25,8 @@ bool existaClasa(clasa& c);
 bool existaVar(variabila& v);
 bool existaFunc(functie& f);
 
+bool modifica(variabila& v);
+
 bool adaugaMem();
 bool scoateMem();
 bool adaugaParams(functie &f, std::string params);

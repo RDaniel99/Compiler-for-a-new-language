@@ -86,6 +86,18 @@ bool StackMemory::AdaugaClasa(clasa c)
     return stck[stck.size() - 1].Declarare(c);
 }
 
+bool StackMemory::Modifica(variabila& v)
+{
+    variabila rez;
+    if(Exista(v, rez))
+    {
+        rez = v;
+        return true;
+    }
+
+    return false;
+}
+
 bool StackMemory::PrintTable()
 {
     ofstream fout("symbol_table.txt");

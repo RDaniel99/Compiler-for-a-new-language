@@ -20,7 +20,10 @@ begin
     Let kaka:Int;
     Let x:Array<Int>[10];
     Let kaka2:Int;
+    kaka2=3;
     kaka=kaka2;
+    Let kaka3:Int;
+    kaka3=kaka;
     x.x.x.x=2;
     x=f.exit(1,2,x,y.z,t(),t.z());
 

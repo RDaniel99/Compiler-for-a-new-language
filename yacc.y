@@ -29,6 +29,8 @@ extern int yylineno;
 extern int yylex (void);
 
 extern StackMemory memory;
+extern bool        isInFunction;
+extern char*       currentFunctionName;
 
 int yyerror(char * s){
 printf("eroare: %s la linia:%d\n",s,yylineno);
@@ -45,7 +47,7 @@ char*       strval;
 
 %token <strval> ID
 
-%token BEG AND OR NOT DEF LR GR LRE GRE END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE VOID_TYPE INT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
+%token ENDDEF BEG AND OR NOT DEF LR GR LRE GRE END LET CLASS IF FOR WHILE EVAL_FUNC STRUCTURE VOID_TYPE INT_TYPE CHAR_TYPE STRING_TYPE BOOL_TYPE FLOAT_TYPE DEFINE ARRAY_TYPE STRLEN_FUNC
 
 %type<strval> variabila_tip
 %type<strval> lista_variabile_declarare
@@ -149,22 +151,22 @@ variabila_tip: ID':'tip
                }
          ;
 
-declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_functie END 
+declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_functie ENDDEF 
                   { 
                        ///DECLARARE TODO
                        printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
                   }
-                  | DEF ID '('')' ':' tip BEG EMPTY END                                
+                  | DEF ID '('')' ':' tip BEG EMPTY ENDDEF                                
                   {
                          ///DECLARARE TODO
                        printf("functia %s declarata cu tipul %s fara parametri\n",$2,$6);
                   }
-                  | DEF ID '('lista_variabile_declarare')' ':' tip BEG EMPTY END       
+                  | DEF ID '('lista_variabile_declarare')' ':' tip BEG EMPTY ENDDEF       
                   { 
                           ///DECLARARE TODO
                        printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
                   }
-                  | DEF ID '('')' ':' tip BEG cod_functie END                          
+                  | DEF ID '('')' ':' tip BEG cod_functie ENDDEF                          
                   { 
                      ///DECLARARE TODO
                        printf("functia %s declarata cu tipul %s fara parametri\n",$2,$6);
@@ -290,6 +292,8 @@ cod_main: EMPTY
 #include <iostream>  
 
 int main(int argc, char** argv){
+isInFunction=false;
+currentFunctionName=0;
 
 yyin=fopen(argv[1],"r");
 yyparse();

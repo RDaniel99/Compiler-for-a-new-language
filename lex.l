@@ -3,14 +3,17 @@
 #include "y.tab.h"
 #include "shared.h"
 extern StackMemory memory;
+extern bool        isInFunction;
+extern char*       currentFunctionName;
 %}
 %option noyywrap
 %%
 
 "/\*(.|\n)+\*/" ; 
 
+"endDef" {return ENDDEF; isInFunction=false}
 "begin" {printf("BEGIN FOUND\n"); return BEG;}
-"def"   {return DEF;}
+"def"   {return DEF; isInFunction=true;}
 "end"   {printf("END FOUND\n"); return END;}
 "And"   {return AND;}
 "Or"    {return OR;}

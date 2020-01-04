@@ -2,18 +2,15 @@
 #include <stdio.h>
 #include "y.tab.h"
 #include "shared.h"
-extern StackMemory memory;
-extern bool        isInFunction;
-extern char*       currentFunctionName;
 %}
 %option noyywrap
 %%
 
 "/\*(.|\n)+\*/" ; 
 
-"endDef" {return ENDDEF; SetIsInFunction(false);}
+"endDef" {return ENDDEF;}
 "begin" {printf("BEGIN FOUND\n"); return BEG;}
-"def"   {return DEF; SetIsInFunction(true);}
+"def"   {return DEF;}
 "end"   {printf("END FOUND\n"); return END;}
 "And"   {return AND;}
 "Or"    {return OR;}

@@ -16,7 +16,10 @@ bool GetIsInFunction()
 
 void SetCurrentFunctionName(char* fName)
 {
-    currentFunctionName=strdup(fName);
+    if(fName==nullptr)
+        currentFunctionName=nullptr;
+    else
+        currentFunctionName=strdup(fName);
 }
 
 char* GetCurrentFunctionName()
@@ -30,5 +33,5 @@ void SetMemory(StackMemory memory_)
 }
 StackMemory getMemory()
 {
-
+    return memory;
 }

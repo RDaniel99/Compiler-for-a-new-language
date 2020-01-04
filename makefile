@@ -1,7 +1,7 @@
 clean:
 	lex lex.l
 	yacc -d yacc.y
-	g++ y.tab.c lex.yy.c Memory.cpp StackMemory.cpp Converter.cpp -ll -ly -std=c++11 -o exec
+	g++ y.tab.c lex.yy.c shared.cpp Memory.cpp StackMemory.cpp Converter.cpp -ll -ly -std=c++11 -o exec
 	rm lex.yy.c
 	rm y.tab.c
 	rm y.tab.h
@@ -11,7 +11,7 @@ clean:
 verbose:
 	lex lex.l
 	yacc -d yacc.y
-	g++ y.tab.c lex.yy.c Memory.cpp StackMemory.cpp Converter.cpp -ll -ly -std=c++11 -o exec
+	g++ y.tab.c lex.yy.c shared.cpp Memory.cpp StackMemory.cpp Converter.cpp -ll -ly -std=c++11 -o exec
 	rm lex.yy.c
 	rm y.tab.c
 	rm y.tab.h

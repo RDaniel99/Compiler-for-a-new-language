@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
+#include "shared.h"
 
 #include "y.tab.h"
 
 #include "Messages.h"
 #include "StackMemory.h"
 #include "Converter.h"
-#include "shared.h"
 
 typedef struct expr_info {
 	int intvalue;
@@ -285,11 +285,18 @@ cod_main: EMPTY
 %%
 
 #include <iostream>  
+#include "shared.h"
 
 int main(int argc, char** argv){
-SetIsInFunction(False);
-SetCurrentFunctionName(
-currentFunctionName=0;
+
+StackMemory memory;
+///SetMemory(memory);
+std::cout<<"1\n";
+SetIsInFunction(false);
+std::cout<<"1\n";
+
+SetCurrentFunctionName(nullptr);
+std::cout<<"1\n";
 
 yyin=fopen(argv[1],"r");
 yyparse();

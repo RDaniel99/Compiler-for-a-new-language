@@ -150,23 +150,47 @@ variabila_tip: ID':'tip
 
 declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_functie ENDDEF 
                   { 
-                       ///DECLARARE TODO
-                       printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
+                       functie f;
+                       f.nume = std::string($2);
+                       f.returnType = std::string($7);
+                       adaugaParams(f, std::string($4));
+                       if(adaugaFunc(f))
+                         printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
+                       else
+                         printf("functia %s nu a fost declarata cu tipul %s si parametrii %s", $2, $7, $4);
                   }
                   | DEF ID '('')' ':' tip BEG EMPTY ENDDEF                                
                   {
-                         ///DECLARARE TODO
-                       printf("functia %s declarata cu tipul %s fara parametri\n",$2,$6);
+                       functie f;
+                       f.nume = std::string($2);
+                       f.returnType = std::string($6);
+                       f.parametrii.clear();
+                       if(adaugaFunc(f))
+                         printf("functia %s declarata cu tipul %s fara parametri\n",$2, $6);
+                       else
+                         printf("functia %s nu a fost declarata cu tipul %s fara parametri\n", $2, $6);
                   }
                   | DEF ID '('lista_variabile_declarare')' ':' tip BEG EMPTY ENDDEF       
                   { 
-                          ///DECLARARE TODO
-                       printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
+                       functie f;
+                       f.nume = std::string($2);
+                       f.returnType = std::string($7);
+                       adaugaParams(f, std::string($4));
+                       if(adaugaFunc(f))
+                         printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
+                       else
+                         printf("functia %s nu a fost declarata cu tipul %s si parametrii %s", $2, $7, $4);
                   }
                   | DEF ID '('')' ':' tip BEG cod_functie ENDDEF                          
                   { 
-                     ///DECLARARE TODO
-                       printf("functia %s declarata cu tipul %s fara parametri\n",$2,$6);
+                       functie f;
+                       f.nume = std::string($2);
+                       f.returnType = std::string($6);
+                       f.parametrii.clear();
+                       if(adaugaFunc(f))
+                         printf("functia %s declarata cu tipul %s fara parametri\n",$2,$6);
+                       else
+                         printf("functia %s nu a fost declarata cu tipul %s fara parametri\n", $2, $6);
                   }
                   ;
 
@@ -286,6 +310,8 @@ int main(int argc, char** argv){
 
 StackMemory memory;
 SetMemory(memory);
+adaugaMem();
+std::cout<<"1\n";
 SetIsInFunction(false);
 SetCurrentFunctionName(nullptr);
 std::cout<<"123\n";

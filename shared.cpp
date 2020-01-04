@@ -70,4 +70,41 @@ void SetIsInClass(bool b)
 bool GetIsInClass()
 {
     return isInClass;
+
+bool adaugaParams(functie &f, std::string params)
+{
+    variabila p;
+    p.nume = "";
+    p.tip = "";
+    p.valoare = "";
+    int ord = 0;
+    params += ',';
+    for(int i = 0; i < params.size(); i++)
+    {
+        if(params[i] == ':')
+        {
+            ord = 1;
+            continue;
+        }
+
+        if(params[i] == ',')
+        {
+            ord = 0;
+            f.parametrii.push_back(p);
+            p.nume = "";
+            p.tip = "";
+            continue;
+        }
+
+        if(ord == 0)
+        {
+            p.nume += params[i];
+        }
+        else
+        {
+            p.tip += params[i];
+        }
+    }
+
+    return true;
 }

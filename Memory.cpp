@@ -47,7 +47,7 @@ bool Memory::Exista(functie f, int &pos)
     printf("Params: ");
     for(int i = 0; i < f.parametrii.size(); i++)
     {
-        printf("Tip: %s, ", f.parametrii[i].tip.c_str());
+        printf("Tip: %s,", f.parametrii[i].tip.c_str());
     }
 
     printf("\nLen: %d\n", f.returnType.size());
@@ -69,9 +69,9 @@ bool Memory::Exista(functie f, int &pos)
         }
 
         printf("\nLen: %d\n", x.returnType.size());
-        if(x.nume == f.nume && ((f.returnType.size() && x.returnType == f.returnType) || f.returnType.size() == 0))
+        if(x.nume == f.nume && f.returnType.size()==x.returnType.size && x.returnType == f.returnType)
         {
-            bool ok = x.parametrii.size() == f.parametrii.size();
+            bool ok = (x.parametrii.size() == f.parametrii.size());
             for(unsigned int j = 0; ok && j < x.parametrii.size(); j++)
                 if(x.parametrii[j].tip != f.parametrii[j].tip)
                     ok = false;

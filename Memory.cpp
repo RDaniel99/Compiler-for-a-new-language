@@ -72,17 +72,23 @@ bool Memory::Exista(functie f, int &pos)
 
 bool Memory::Exista(variabila v, int &pos)
 {
+    cout<<"\n\n\nEXISTA APELAT PE VAR "<<v.nume<<"\n";
     pos = -1;
 
+    cout<<"START MEMORIE\n";
     for(unsigned int i = 0; i < variabile.size(); i++)
     {
+        cout<<variabile[i].nume<<"\n";
         if(variabile[i].nume == v.nume)
         {
             pos = i;
+
             return true;
         }
     
     }
+    cout<<"END MEMORIE\n\n\n";
+
     return false;
 }
 
@@ -92,6 +98,7 @@ bool Memory::Exista(clasa c, int &pos)
 
     for(unsigned int i = 0; i < clase.size(); i++)
     {
+        
         if(clase[i].nume == c.nume)
         {
             pos = i;

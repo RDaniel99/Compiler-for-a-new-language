@@ -144,7 +144,11 @@ variabila_tip: ID':'tip
                     if(adaugaVar(v))
                          printf("variabila %s de tipul %s declarata\n",$1,$3);
                     else
+                    {
                          printf("variabila %s de tipul %s a fost declarata anterior\n", $1, $3);
+                         M_ERROR_EXISTS_VAR
+                         exit(0);
+                    }
                }
          ;
 
@@ -157,7 +161,11 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                        if(adaugaFunc(f))
                          printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
                        else
+                       {
                          printf("functia %s nu a fost declarata cu tipul %s si parametrii %s", $2, $7, $4);
+                         M_ERROR_EXISTS_FUNC
+                         exit(0);
+                       }
                   }
                   | DEF ID '('')' ':' tip BEG EMPTY ENDDEF                                
                   {
@@ -168,7 +176,11 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                        if(adaugaFunc(f))
                          printf("functia %s declarata cu tipul %s fara parametri\n",$2, $6);
                        else
+                       {
                          printf("functia %s nu a fost declarata cu tipul %s fara parametri\n", $2, $6);
+                         M_ERROR_EXISTS_FUNC
+                         exit(0);
+                       }
                   }
                   | DEF ID '('lista_variabile_declarare')' ':' tip BEG EMPTY ENDDEF       
                   { 
@@ -179,7 +191,11 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                        if(adaugaFunc(f))
                          printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
                        else
-                         printf("functia %s nu a fost declarata cu tipul %s si parametrii %s", $2, $7, $4);
+                       {
+                         printf("functia %s nu a fost declarata cu tipul %s si parametrii %s\n", $2, $7, $4);
+                         M_ERROR_EXISTS_FUNC
+                         exit(0);
+                       }
                   }
                   | DEF ID '('')' ':' tip BEG cod_functie ENDDEF                          
                   { 
@@ -190,7 +206,12 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                        if(adaugaFunc(f))
                          printf("functia %s declarata cu tipul %s fara parametri\n",$2,$6);
                        else
+                       {
                          printf("functia %s nu a fost declarata cu tipul %s fara parametri\n", $2, $6);
+                         M_ERROR_EXISTS_FUNC
+                         exit(0);
+                       }
+                       
                   }
                   ;
 

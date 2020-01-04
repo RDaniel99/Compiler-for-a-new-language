@@ -1,19 +1,23 @@
 def f(x:Int,y:Char):Int
 begin
-    Let x:Int;
-    Let x:Int;
+    Let a:Int;
+    Let b:Int;
+endDef;
+
+def f(x:Int,y:Char,z:Char):Int
+begin
 endDef;
 
 def main():Int
 begin
 
+    Let kaka:Int;
     Let x:Array<PINT>[10];
     x.x.x.x=2;
     x=f.exit(1,2,x,y.z,t(),t.z());
 
     eval((x+y+z)*2+2/2-1);
 
-    Let x:Int;
     if(False)
     begin
         Let x:Int;
@@ -21,7 +25,7 @@ begin
 
     for(x=1;False;x=2)
     begin
-        Let x:Int;
+        Let xx:Int;
     end
 
     x=y.f(1,2,3);

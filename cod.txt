@@ -29,13 +29,13 @@ begin
     kaka=f(kaka,char2,char2);
     Let x:Array<Int>[10];
     Let kaka2:Int;
+    kaka2=12;
     kaka=kaka2;
     Let kaka3:Int;
     kaka3=kaka;
     x.x.x.x=2;
-    x=f.exit(1,2,x,y.z,t(),t.z());
 
-    eval((x+y+z)*2+2/2-1);
+    eval((x+y+z)*2+2/2-1-1);
 
     if(False)
     begin
@@ -47,7 +47,6 @@ begin
         Let xx:Int;
     end
 
-    x=y.f(1,2,3);
 
 endDef;
 

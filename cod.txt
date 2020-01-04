@@ -24,16 +24,11 @@ endClass;
 
 def main():Int
 begin
-
-    Let kaka4:Int;
-    Let char1:Char;
     Let char2:Char;
-    kaka4=3;
-    kaka4=f(kaka4,char1);
     Let kaka:Int;
+    kaka=abc.f(kaka,char2);
     Let x:Array<Int>[10];
     Let kaka2:Int;
-    kaka2=3;
     kaka=kaka2;
     Let kaka3:Int;
     kaka3=kaka;

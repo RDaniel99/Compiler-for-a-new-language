@@ -30,3 +30,4 @@ bool modifica(variabila& v);
 bool adaugaMem();
 bool scoateMem();
 bool adaugaParams(functie &f, std::string params);
+bool checkParams(functie &f, std::string params);

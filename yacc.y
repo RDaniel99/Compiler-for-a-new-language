@@ -472,7 +472,9 @@ apelare: ID '(' ')'
             f.nume = std::string($1);
             f.returnType = "";
             f.parametrii.clear();
-            adaugaParams(f, std::string($3));
+            printf("Params: %s\n", $3);
+            checkParams(f, std::string($3));
+            printf("up here\n");
             if(existaFunc(f))
             {
                  printf("Apel corect al functiei cu params\n");

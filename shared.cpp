@@ -191,6 +191,7 @@ bool modifica(variabila& v)
 
 bool appendToClass(clasa c, variabila v)
 {
+
     for(int i = memory.stck.size() - 1; i >= 0; --i)
     {
         int poz = -1;

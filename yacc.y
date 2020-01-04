@@ -147,7 +147,7 @@ lista_variabile_declarare: variabila_tip
 variabila_tip: ID':'tip
                {
                     clasa c;
-                    c.nume=std::string($3);
+                    c.nume=std::string(GetCurrentClassName());
 
                     if(GetCurrentClassName())
                          std::cout<<"clasa: "<<GetCurrentClassName()<<"\n";
@@ -160,13 +160,16 @@ variabila_tip: ID':'tip
                     {
                          if(GetIsInFunction()==0)
                          {
+                              clasa c2;
+                              c2.nume=std::string(GetCurrentClassName());
+
                               variabila v;
                               v.nume    = std::string($1);
                               v.tip     = std::string($3);
                               v.valoare = "";
 
                               std::cout<<v.nume<<" "<<v.tip<<"\n";
-                              std::cout<<"REZULTAT APPEND:"<<appendToClass(c,v)<<"\n";
+                              std::cout<<"REZULTAT APPEND: "<<appendToClass(c2,v)<<"\n";
 
                               pre=std::string(GetCurrentClassName())+std::string("::");
                          }

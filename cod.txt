@@ -1,14 +1,3 @@
-def f(x:Int,y:Char):Int
-begin
-    Let a:Int;
-    Let b:Int;
-endDef;
-
-def f(x:Int,y:Char,z:Char):Int
-begin
-
-endDef;
-
 Class abc
 begin
     Let elClasa1:Int;
@@ -24,36 +13,8 @@ endClass;
 
 def main():Int
 begin
-
     Let x:abc;
-    x.f(y,z);
-    Let char2:Char;
-    Let kaka:Int;
-
     
-    Let x:Array<Int>[10];
-    Let kaka2:Int;
-    kaka2=12;
-    kaka=kaka2;
-    Let kaka3:Int;
-    kaka3=kaka;
-
-    Let testClasa:abc;
-    abc.f(kaka,char2);
-
-    eval((x+y+z)*2+2/2-1-1);
-
-    if(False)
-    begin
-        Let x:Int;
-    end
-
-    for(x=1;False;x=2)
-    begin
-        Let xx:Int;
-    end
-
-
 endDef;
 
 

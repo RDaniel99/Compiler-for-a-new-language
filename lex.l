@@ -1,6 +1,8 @@
 %{
 #include <stdio.h>
 #include "y.tab.h"
+#include "shared.h"
+extern StackMemory memory;
 %}
 %option noyywrap
 %%

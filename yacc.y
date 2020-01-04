@@ -8,6 +8,7 @@
 #include "Messages.h"
 #include "StackMemory.h"
 #include "Converter.h"
+#include "shared.h"
 
 typedef struct expr_info {
 	int intvalue;
@@ -27,7 +28,7 @@ extern int yylineno;
 
 extern int yylex (void);
 
-StackMemory memory;
+extern StackMemory memory;
 
 int yyerror(char * s){
 printf("eroare: %s la linia:%d\n",s,yylineno);

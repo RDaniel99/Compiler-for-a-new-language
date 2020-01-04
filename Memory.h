@@ -11,11 +11,15 @@ struct variabila
     std::string valoare;
 };
 
+class Memory;
+
 struct functie
 {
     std::string returnType;
     std::string nume;
     std::vector<variabila> parametrii;
+
+    Memory* memorieFunctie;
 };
 
 class Memory

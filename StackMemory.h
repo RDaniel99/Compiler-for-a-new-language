@@ -1,3 +1,6 @@
+#ifndef H_STACKMEMORY
+#define H_STACKMEMORY
+
 #include "Memory.h"
 
 class StackMemory {
@@ -14,3 +17,5 @@ public:
 
     std::vector<Memory> stck;
 };
+
+#endif H_STACKMEMORY

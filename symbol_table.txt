@@ -1,7 +1,5 @@
 Memoria numaru' 0
-Total variabile: 2
---Tip variabila: Int , nume variabila: abc::elClasa1 valoare variabila: 
---Tip variabila: Int , nume variabila: abc::elClasa2 valoare variabila: 
+Total variabile: 0
 
 
 Total functii: 2
@@ -18,3 +16,5 @@ Total functii: 2
 
 Total clase: 1
 --Nume clasa: abc total membrii: 0 total fct: 0
+
+

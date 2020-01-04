@@ -143,11 +143,7 @@ declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS
 cod_clasa:declaratii 
          ;
 
-<<<<<<< HEAD
-declaratie_variabila: LET lista_variabile_declarare
-=======
 declaratie_variabila: LET lista_variabile_declarare 
->>>>>>> 554d34497154cf88d7b813667c5fdab61b562c1e
                     ;
 
 lista_variabile_declarare: variabila_tip 

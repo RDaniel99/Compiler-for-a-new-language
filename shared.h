@@ -21,6 +21,7 @@ StackMemory getMemory();
 bool adaugaVar(variabila v);
 bool adaugaFunc(functie f);
 bool adaugaClasa(clasa c);
+bool appendToClass(clasa c, variabila v);
 bool existaClasa(clasa& c);
 bool existaVar(variabila& v);
 bool existaFunc(functie& f);

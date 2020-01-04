@@ -52,6 +52,11 @@ bool adaugaFunc(functie f)
     return memory.AdaugaFunctie(f);
 }
 
+bool adaugaClasa(clasa c)
+{
+    return memory.AdaugaClasa(c);
+}
+
 bool adaugaMem()
 {
     return memory.AdaugaMemorie();
@@ -61,6 +66,40 @@ bool scoateMem()
 {
     return memory.EliminaMemorie();
 }
+
+bool existaClasa(clasa& c)
+{
+    clasa rez;
+    bool ok = memory.Exista(c, rez);
+
+    if(ok)
+        c = rez;
+    
+    return ok;
+}
+
+bool existaVar(variabila& v)
+{
+    variabila rez;
+    bool ok = memory.Exista(v, rez);
+
+    if(ok)
+        v = rez;
+    
+    return ok;
+}
+
+bool existaFunc(functie& f)
+{
+    functie rez;
+    bool ok = memory.Exista(f, rez);
+
+    if(ok)
+        f = rez;
+    
+    return ok;
+}
+
 void SetCurrentClassName(char* name)
 {
     if(name==nullptr)
@@ -113,4 +152,9 @@ bool adaugaParams(functie &f, std::string params)
     }
 
     return true;
+}
+
+bool modifica(variabila& v)
+{
+    memory.Modifica(v);
 }

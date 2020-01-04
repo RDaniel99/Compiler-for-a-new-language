@@ -34,6 +34,19 @@ bool StackMemory::Exista(variabila v, variabila& rez)
     return false;
 }
 
+bool StackMemory::Exista(clasa c, clasa& rez)
+{
+    int poz;
+    for(unsigned int i = stck.size() - 1; i >= 0; --i)
+        if(stck[i].Exista(c, poz))
+        {
+            rez = stck[i].clase[poz];
+            return true;
+        }
+
+    return false;
+}
+
 bool StackMemory::AdaugaMemorie()
 {
     Memory nou;
@@ -63,6 +76,26 @@ bool StackMemory::AdaugaFunctie(functie f)
         return false;
 
     return stck[stck.size() - 1].Declarare(f);
+}
+
+bool StackMemory::AdaugaClasa(clasa c)
+{
+    if(stck.size() == 0)
+        return false;
+
+    return stck[stck.size() - 1].Declarare(c);
+}
+
+bool StackMemory::Modifica(variabila& v)
+{
+    variabila rez;
+    if(Exista(v, rez))
+    {
+        rez = v;
+        return true;
+    }
+
+    return false;
 }
 
 bool StackMemory::PrintTable()

@@ -6,6 +6,12 @@ printf("Error: Functia a fost deja definita anterior!\n");
 #define M_ERROR_EXISTS_VAR \
 printf("Error: Variabila a fost deja definita anterior!\n");
 
+#define M_ERROR_EXISTS_CLASS \
+printf("Error: Clasa a fost deja definita anterior!\n");
+
+#define M_ERROR_NOT_EXISTS_CLASS \
+printf("Error: Clasa folosita n-a fost declarata!\n");
+
 #define M_ERROR_NOT_EXISTS_FUNC \
 printf("Error: Functia folosita n-a fost declarata!\n");
 

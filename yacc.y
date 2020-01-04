@@ -106,10 +106,38 @@ tip: INT_TYPE                                     {$$="INT";}
    | class_type                                   {$$=$1;}
    ;
 
-class_type: ID {$$=$1; printf("de verificat daca exista clasa \n");}
+class_type: ID 
+               {
+                    $$=$1; 
+                    clasa c;
+                    c.nume = std::string($1);
+                    if(existaClasa(c))
+                         printf("Clasa %s a fost gasita.\n");
+                    else
+                    {
+                         M_ERROR_NOT_EXISTS_CLASS
+                         exit(0);
+                    }
+               }
           ;
 
-declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS   { }
+declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS   
+               { 
+                    clasa c;
+                    c.nume = std::string($2);
+                    c.membrii.clear();
+                    c.functii.clear();
+
+                    // To do: de adaugat membrii si functii
+                    if(adaugaClasa(c))
+                         printf("Clasa %s a fost adaugata.\n", $2);
+                    else
+                    {
+                         printf("Clasa %s n-a fost adaugata.\n", $2);
+                         M_ERROR_EXISTS_CLASS
+                         exit(0);
+                    }
+               }
                 ;
 
 cod_clasa:declaratii 
@@ -164,7 +192,7 @@ variabila_tip: ID':'tip
                          printf("variabila %s de tipul %s a fost declarata anterior\n", $1, $3);
                          M_ERROR_EXISTS_VAR
                          exit(0);
-                         
+
                     }
                }
          ;
@@ -304,9 +332,80 @@ logical_operator: AND
 
 
 ///TODO: de verificat tipurile si daca ID este valid
-asignare: ID '=' value                       {printf(" 1 | %s<-%s\n",$1,$3);}
-        | ID '=' ID                          {printf(" 2 | %s<-%s\n",$1,$3);}
-        | ID '=' apelare                     {printf(" 3 | %s<-%s\n",$1,$3);}
+asignare: ID '=' value                       
+          {
+               printf(" 1 | %s<-%s\n",$1,$3);
+               variabila v;
+               v.nume = std::string($1);
+               if(existaVar(v))
+               {
+                    v.valoare = std::string($3);
+                    modifica(v);
+                    printf("Noua valoare pt %s este: %s\n", v.nume.c_str(), v.valoare.c_str());
+               }
+               else
+               {
+                    M_ERROR_NOT_EXISTS_VAR
+                    exit(0);
+               }
+          }
+        | ID '=' ID                          
+          {
+             printf(" 2 | %s<-%s\n",$1,$3);
+             variabila v1;
+             variabila v2;
+             v1.nume = std::string($1);
+             v2.nume = std::string($3);
+             if(existaVar(v1) && existaVar(v2))
+             {
+                  printf("Variabilele exista:\n");
+                  printf("Var1Name: %s, Var1Tip: %s, Var1Valoare: %s\n", v1.nume.c_str(), v1.tip.c_str(), v1.valoare.c_str());
+                  printf("Var2Name: %s, Var2Tip: %s, Var2Valoare: %s\n", v2.nume.c_str(), v2.tip.c_str(), v2.valoare.c_str());
+                  if(v1.tip == v2.tip && v2.valoare != "")
+                  {
+                       printf("Asignare corecta\n");
+                       modifica(v2);
+                       printf("Noua valoare pt %s este: %s\n", v1.nume.c_str(), v1.valoare.c_str());
+                  }
+                  else
+                  {
+                       printf("Asignare gresita!!!\n");
+                       exit(0);
+                  }
+             }
+          }
+        | ID '=' apelare                     
+          {
+               /// To-Do: pt eval()
+             printf(" 3 | %s<-%s\n",$1,$3);
+             variabila v;
+             std::string str = std::string($3);
+             v.nume = std::string($1);
+             functie f;
+             f.nume = "";
+             int b = 0;
+             for(int i = 0; i < str.size(); i++)
+             {
+                  if(str[i] == '(') {
+                       b = 1;
+                       break;
+                  }
+                  f.nume += str[i];
+             }
+
+             if(b == 1 && existaVar(v) && existaFunc(f))
+             {
+                  if(v.tip == f.returnType)
+                  {
+                       printf("Asignare corecta\n");
+                  }
+                  else
+                  {
+                       printf("Asignare gresita\n");
+                       exit(0);
+                  }
+             }
+          }
         | ID '=' classApelare                {printf(" 4 | %s<-%s\n",$1,$3);}
         | ID '=' classContent                {printf(" 5 | %s<-%s\n",$1,$3);}
         | classContent '=' value             {printf(" 6 | %s<-%s\n",$1,$3);}
@@ -342,8 +441,50 @@ classApelare: ID'.'classApelare
                }
             ;
 
-       apelare: ID '(' ')'         {strcat($$,"()");}
-       | ID '('list_parametri')'   {strcat($$,"(");strcat($$,$3);strcat($$,")");}
+apelare: ID '(' ')'         
+          {
+               strcat($$,"()");
+               functie f;
+               f.nume = std::string($1);
+               f.returnType = "";
+               f.parametrii.clear();
+
+               if(existaFunc(f))
+               {
+                    if(f.parametrii.size() == 0)
+                    {
+                         printf("Apel corect functie fara params\n");
+                    }
+                    else
+                    {
+                         printf("Error: Numar incorect de parametrii\n");
+                         exit(0);
+                    }
+               }
+               else
+               {
+                    M_ERROR_NOT_EXISTS_FUNC
+                    exit(0);
+               }
+          }
+       | ID '('list_parametri')'   
+          {
+            strcat($$,"(");strcat($$,$3);strcat($$,")");
+            functie f;
+            f.nume = std::string($1);
+            f.returnType = "";
+            f.parametrii.clear();
+            adaugaParams(f, std::string($3));
+            if(existaFunc(f))
+            {
+                 printf("Apel corect al functiei cu params\n");
+            }
+            else
+            {
+                 printf("Error: Numar incorect de parametrii\n");
+                 exit(0);
+            }
+          }
        | EVAL_FUNC '('expr')'      {if(strcmp("main",GetCurrentFunctionName())==0) printf("valoarea este: %d\n",$3);}
        ;
 

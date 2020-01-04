@@ -8,6 +8,17 @@ Memory::Memory()
     functii.clear();
 }
 
+bool Memory::Declarare(clasa c)
+{
+    int tmp;
+    if(Exista(c, tmp))
+        return false;
+
+    clase.push_back(c);
+
+    return true;
+}
+
 bool Memory::Declarare(functie f)
 {
     int tmp;
@@ -75,6 +86,23 @@ bool Memory::Exista(variabila v, int &pos)
     return false;
 }
 
+bool Memory::Exista(clasa c, int &pos)
+{
+    pos = -1;
+
+    for(unsigned int i = 0; i < clase.size(); i++)
+    {
+        if(clase[i].nume == c.nume)
+        {
+            pos = i;
+            return true;
+        }
+    
+    }
+
+    return false;
+}
+
 bool Memory::Scoate(functie f)
 {
     return true;
@@ -85,14 +113,17 @@ bool Memory::Scoate(variabila v)
     return true;
 }
 
+bool Memory::Scoate(clasa c)
+{
+    return true;
+}
+
 bool Memory::Modifica(variabila v)
 {
     int poz;
     if(!Exista(v, poz))
         return false;
 
-    variabile[poz].nume = v.nume;
-    variabile[poz].tip = v.tip;
     variabile[poz].valoare = v.valoare;
 
     return false;
@@ -119,6 +150,21 @@ bool Memory::PrintTable()
             fout << y.tip << ' ' << y.nume << ' ' << y.valoare << '\n';
 
         fout << '\n';
+    }
+
+    for(auto x: clase)
+    {
+        fout << x.nume << '\n';
+
+        for(auto f: x.functii)
+        {
+            fout << f.returnType << ' ' << f.nume << ' ' << f.parametrii.size() << '\n';
+
+            for(auto p: f.parametrii)
+                fout << p.tip << ' ' << p.nume << ' ' << p.valoare << '\n';
+
+            fout << '\n';
+        }
     }
 
     return true;

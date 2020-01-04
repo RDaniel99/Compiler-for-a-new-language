@@ -71,6 +71,7 @@ bool GetIsInClass()
 {
     return isInClass;
 }
+
 bool adaugaParams(functie &f, std::string params)
 {
     variabila p;

@@ -251,7 +251,7 @@ classApelare: ID'.'classApelare
 
        apelare: ID '(' ')'         {strcat($$,"()");}
        | ID '('list_parametri')'   {strcat($$,"(");strcat($$,$3);strcat($$,")");}
-       | EVAL_FUNC '('expr')'      {printf("valoarea este: %d\n",$3);}
+       | EVAL_FUNC '('expr')'      {if(strcmp("main",GetCurrentFunctionName())==0) printf("valoarea este: %d\n",$3);}
        ;
 
 
@@ -275,13 +275,6 @@ value: INT_VALUE
 EMPTY:
      ; 
 
-
-
-cod_main: EMPTY
-        | cod_functie
-        ;
-
-
 %%
 
 #include <iostream>  
@@ -290,7 +283,7 @@ cod_main: EMPTY
 int main(int argc, char** argv){
 
 StackMemory memory;
-///SetMemory(memory);
+SetMemory(memory);
 std::cout<<"1\n";
 SetIsInFunction(false);
 std::cout<<"1\n";

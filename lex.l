@@ -8,9 +8,9 @@
 
 "/\*(.|\n)+\*/" ; 
 
-"endDef" {return ENDDEF;}
+"endDef" {return ENDDEF; SetIsInFunction(false);}
 "begin" {printf("BEGIN FOUND\n"); return BEG;}
-"def"   {return DEF;}
+"def"   {return DEF; SetIsInFunction(true);}
 "end"   {printf("END FOUND\n"); return END;}
 "And"   {return AND;}
 "Or"    {return OR;}
@@ -48,7 +48,11 @@
                                      return FLOAT_VALUE;}
 
 [A-Za-z][A-Za-z0-9]* {
-                        yylval.strval=strdup(yytext);                        
+                        yylval.strval=strdup(yytext);
+                        if(GetIsInFunction)
+                        {
+                           SetCurrentFunctionName(yytext);
+                        }
                         return ID;
                      }
 [ \t] ;

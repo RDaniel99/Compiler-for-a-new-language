@@ -24,6 +24,9 @@ endClass;
 
 def main():Int
 begin
+
+    Let x:abc;
+    x.f(y,z);
     Let char2:Char;
     Let kaka:Int;
 

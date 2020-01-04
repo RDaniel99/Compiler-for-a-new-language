@@ -97,12 +97,12 @@ declaratii: declaratie_clasa';'
           | declaratie_functie';' declaratii
           ;
 
-tip: INT_TYPE                                     {$$="INT";}
-   | BOOL_TYPE                                    {$$="BOOL";}
-   | FLOAT_TYPE                                   {$$="FLOAT";}
-   | CHAR_TYPE                                    {$$="CHAR";}
-   | VOID_TYPE                                    {$$="VOID";}
-   | ARRAY_TYPE LR tip GR '[' INT_VALUE ']'       {$$="ARRAY";}
+tip: INT_TYPE                                     {$$="Int";}
+   | BOOL_TYPE                                    {$$="Bool";}
+   | FLOAT_TYPE                                   {$$="Float";}
+   | CHAR_TYPE                                    {$$="Char";}
+   | VOID_TYPE                                    {$$="Void";}
+   | ARRAY_TYPE LR tip GR '[' INT_VALUE ']'       {$$="Aarray";}
    | class_type                                   {$$=$1;}
    ;
 
@@ -159,6 +159,10 @@ lista_variabile_declarare: variabila_tip
 
 variabila_tip: ID':'tip
                {
+
+                    clasa c;
+                    c.nume=std::string($3);
+
                     if(GetCurrentClassName())
                          std::cout<<"clasa: "<<GetCurrentClassName()<<"\n";
                     if(GetCurrentFunctionName())
@@ -170,16 +174,40 @@ variabila_tip: ID':'tip
                     {
                          if(GetIsInFunction()==0)
                          {
+                              variabila v;
+                              v.nume    = pre+std::string($1);
+                              v.tip     = std::string($3);
+                              v.valoare = "";
+                              
+                              addToClass(c,v);
+                              
                               pre=std::string(GetCurrentClassName())+std::string("::");
                          }
                     }
 
-                    clasa c;
-                    c.nume=std::string($3);
-                    std::cout<<"NUME CLASA: "<<c.nume<<"\n";
                     if(existaClasa(c))
                     {
-                         std::cout<<"Clasa a fost gasita v2\n";
+                         std::cout<<"Clasa a fost gasita v2\nVARIABILE:\n";
+     
+                         for (auto var:c.membrii)
+                         {
+                              std::cout<<var.nume<<"\n";
+                         }
+                         std::cout<<"FUNCTII:\n";
+                         for (auto fun:c.functii)
+                         {
+                              std::cout<<fun.nume<<"\n";
+                         }
+                         
+                    }
+                    else if(c.nume==std::string("Int")||c.nume==std::string("Float")||c.nume==std::string("Char")||c.nume==std::string("Bool")||c.nume==std::string("Void"))
+                    {
+                         printf("Tip standard\n");
+                    }
+                    else
+                    {
+                         std::cout<<"TIP INEXISTENT\n";
+                         exit(0);
                     }
                
                     char aux[1024];

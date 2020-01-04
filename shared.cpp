@@ -188,3 +188,16 @@ bool modifica(variabila& v)
 {
     memory.Modifica(v);
 }
+
+bool appendToClass(clasa c, variabila v)
+{
+    for(int i = memory.stck.size() - 1; i >= 0; --i)
+    {
+        int poz = -1;
+        if(memory.stck[i].Exista(c, poz))
+        {
+            memory.stck[i].clase[poz].membrii.push_back(v);
+            return true;
+        }
+    }
+}

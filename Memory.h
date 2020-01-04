@@ -50,7 +50,7 @@ public:
 
     bool Modifica(variabila v);
 
-    bool PrintTable();
+    bool PrintTable(ofstream& fout);
     
     std::vector<variabila>  variabile;
     std::vector<functie>    functii; 

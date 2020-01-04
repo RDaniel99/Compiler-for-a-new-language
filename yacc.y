@@ -143,7 +143,7 @@ declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS
 cod_clasa:declaratii 
          ;
 
-declaratie_variabila: LET lista_variabile_declarare {printf("au fost declarate variabilele: %s\n",$2);}
+declaratie_variabila: LET lista_variabile_declarare
                     ;
 
 lista_variabile_declarare: variabila_tip 
@@ -176,7 +176,6 @@ variabila_tip: ID':'tip
                          printf("variabila %s de tipul %s a fost declarata anterior\n", $1, $3);
                          M_ERROR_EXISTS_VAR
                          exit(0);
-
                     }
                }
          ;
@@ -296,7 +295,6 @@ asignare: ID '=' value
                {
                     v.valoare = std::string($3);
                     modifica(v);
-                    printf("Noua valoare pt %s este: %s\n", v.nume.c_str(), v.valoare.c_str());
                }
                else
                {
@@ -313,14 +311,11 @@ asignare: ID '=' value
              v2.nume = std::string($3);
              if(existaVar(v1) && existaVar(v2))
              {
-                  printf("Variabilele exista:\n");
-                  printf("Var1Name: %s, Var1Tip: %s, Var1Valoare: %s\n", v1.nume.c_str(), v1.tip.c_str(), v1.valoare.c_str());
-                  printf("Var2Name: %s, Var2Tip: %s, Var2Valoare: %s\n", v2.nume.c_str(), v2.tip.c_str(), v2.valoare.c_str());
                   if(v1.tip == v2.tip && v2.valoare != "")
                   {
                        printf("Asignare corecta\n");
-                       modifica(v2);
-                       printf("Noua valoare pt %s este: %s\n", v1.nume.c_str(), v1.valoare.c_str());
+                       v1.valoare = v2.valoare;
+                       modifica(v1);
                   }
                   else
                   {
@@ -334,7 +329,8 @@ asignare: ID '=' value
                /// To-Do: pt eval()
              printf(" 3 | %s<-%s\n",$1,$3);
              variabila v;
-             std::string str = std::string($3);
+             std::string str = "";
+             str += std::string($3);
              v.nume = std::string($1);
              functie f;
              f.nume = "";
@@ -347,6 +343,8 @@ asignare: ID '=' value
                   }
                   f.nume += str[i];
              }
+
+             printf("%s\n", f.nume.c_str());
 
              if(b == 1 && existaVar(v) && existaFunc(f))
              {

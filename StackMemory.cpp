@@ -88,11 +88,14 @@ bool StackMemory::AdaugaClasa(clasa c)
 
 bool StackMemory::Modifica(variabila& v)
 {
-    variabila rez;
-    if(Exista(v, rez))
+    for(int i = stck.size() - 1; i >= 0; --i)
     {
-        rez = v;
-        return true;
+        int tmp = -1;
+        if(stck[i].Exista(v, tmp))
+        {
+            stck[i].variabile[tmp] = v;
+            return true;
+        }
     }
 
     return false;

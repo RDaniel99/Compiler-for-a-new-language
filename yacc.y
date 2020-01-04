@@ -59,6 +59,7 @@ char*       strval;
 %type<strval> apelare
 %type<strval> parametru
 %type<intval> expr
+%type<strval> non_int_value
 
 %left '+' '-'
 %left '*' '/'
@@ -105,6 +106,7 @@ tip: INT_TYPE                                     {$$="Int";}
    | ARRAY_TYPE LR tip GR '[' INT_VALUE ']'       {$$="Aarray";}
    | class_type                                   {$$=$1;}
    ;
+
 
 class_type: ID 
                {
@@ -231,18 +233,18 @@ variabila_tip: ID':'tip
 
 declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_functie ENDDEF 
                   { 
-                       std::string pre;
-                       if(GetIsInClass())
-                       {
-                            pre=std::string( GetCurrentClassName());
-                            pre=pre+std::string(".");
-                       }
 
                        functie f;
-                       f.nume = pre+std::string($2);
+                       f.nume = std::string($2);
                        f.returnType = std::string($7);
                        adaugaParams(f, std::string($4));
-                       if(adaugaFunc(f))
+                       if(GetIsInClass())
+                       {
+                            clasa c;
+                            c.nume=std::string(GetCurrentClassName());
+                            appendToClass(c,f);
+                       }
+                       else if(adaugaFunc(f))
                          printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
                        else
                        {
@@ -473,6 +475,7 @@ classContent: ID'.'ID
 
 classApelare: ID'.'classApelare
                {
+
                     strcat($$,".");
                     strcat($$,$3);
                }
@@ -485,6 +488,7 @@ classApelare: ID'.'classApelare
 
 apelare: ID '(' ')'         
           {
+
                strcat($$,"()");
                functie f;
                f.nume = std::string($1);
@@ -511,6 +515,7 @@ apelare: ID '(' ')'
           }
        | ID '('list_parametri')'   
           {
+            std::cout<<"NUME FUNCTIE APEL: "<<$1<<"\n";
             char* aux=strdup($1);
             $1=aux;
             strcat($$,"(");strcat($$,$3);strcat($$,")");
@@ -537,11 +542,11 @@ list_parametri: parametru          {}
               | parametru',' list_parametri {strcat($$,",");strcat($$,$3);}
               ;
 
-parametru: value   {$$=strdup($1);}
-         | ID      {$$=strdup($1);}
-         | apelare {$$=strdup($1);}
-         | classApelare {$$=strdup($1);}
-         | classContent {$$=strdup($1);}
+parametru: non_int_value            {$$=strdup($1);}
+         | apelare                  {$$=strdup($1);}
+         | classApelare             {$$=strdup($1);}
+         | classContent             {$$=strdup($1);}
+         | expr                     {$$=strdup(std::to_string($1).c_str()); std::cout<<"RES: "<<$1<<"\n";}
          ;
 
 value: INT_VALUE    
@@ -549,6 +554,11 @@ value: INT_VALUE
      | CHAR_VALUE   
      | BOOL_VALUE   
      ;
+
+non_int_value: STRING_VALUE
+             | CHAR_VALUE
+             | BOOL_VALUE
+             ;
 
 EMPTY:
      ; 

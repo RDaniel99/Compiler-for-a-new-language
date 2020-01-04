@@ -18,6 +18,10 @@ begin
     x.elClasa1=1;
     x.elClasa3=3;
     x.elClasa4=4;
+
+    Let ch:Char;
+
+    x.f(y,ch);
 endDef;
 
 

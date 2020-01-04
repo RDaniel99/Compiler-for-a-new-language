@@ -1,47 +1,43 @@
 Memoria numaru' 1
-Total variabile: 6
+Total variabile: 7
 --Tip variabila: Int , nume variabila: x.elClasa1 valoare variabila: 
 --Tip variabila: Int , nume variabila: x.elClasa2 valoare variabila: 
 --Tip variabila: Int , nume variabila: x.elClasa3 valoare variabila: 
 --Tip variabila: Int , nume variabila: x.elClasa4 valoare variabila: 
 --Tip variabila: abc , nume variabila: x valoare variabila: 
 --Tip variabila: Int , nume variabila: y valoare variabila: 
+--Tip variabila: Int , nume variabila: z valoare variabila: 
 
 
-Total functii: 0
+Total functii: 1
+--ReturnType: Int , Nume fct: x.f , total params: 2
+----tip param: Int nume param: x valoare param: 
+----tip param: Char nume param: y valoare param: 
+
 
 
 Total clase: 0
 
 
 Memoria numaru' 0
-<<<<<<< HEAD
 Total variabile: 4
 --Tip variabila: Int , nume variabila: abc::elClasa1 valoare variabila: 
 --Tip variabila: Int , nume variabila: abc::elClasa2 valoare variabila: 
 --Tip variabila: Int , nume variabila: abc::elClasa3 valoare variabila: 
 --Tip variabila: Int , nume variabila: abc::elClasa4 valoare variabila: 
-=======
-Total variabile: 0
->>>>>>> 3f554fce12a2d7c8e459269e52a7a356da34447a
 
 
-Total functii: 1
---ReturnType: Int , Nume fct: abc.f , total params: 2
-----tip param: Int nume param: x valoare param: 
-----tip param: Char nume param: y valoare param: 
-
+Total functii: 0
 
 
 Total clase: 1
-<<<<<<< HEAD
---Nume clasa: abc total membrii: 4 total fct: 0
+--Nume clasa: abc total membrii: 4 total fct: 1
 ----tip membru: Int nume membru: elClasa1 valoare membru: 
 ----tip membru: Int nume membru: elClasa2 valoare membru: 
 ----tip membru: Int nume membru: elClasa3 valoare membru: 
 ----tip membru: Int nume membru: elClasa4 valoare membru: 
-=======
---Nume clasa: abc total membrii: 0 total fct: 0
->>>>>>> 3f554fce12a2d7c8e459269e52a7a356da34447a
+----ReturnType: Int , Nume fct: f , total params: 2
+------tip param: Int nume param: x valoare param: 
+------tip param: Char nume param: y valoare param: 
 
 

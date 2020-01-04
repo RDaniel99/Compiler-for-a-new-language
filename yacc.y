@@ -389,8 +389,6 @@ asignare: ID '=' value
                   f.nume += str[i];
              }
 
-             printf("%s\n", f.nume.c_str());
-
              if(b == 1 && existaVar(v) && existaFunc(f))
              {
                   if(v.tip == f.returnType)
@@ -467,14 +465,14 @@ apelare: ID '(' ')'
           }
        | ID '('list_parametri')'   
           {
+            char* aux=strdup($1);
+            $1=aux;
             strcat($$,"(");strcat($$,$3);strcat($$,")");
             functie f;
             f.nume = std::string($1);
             f.returnType = "";
             f.parametrii.clear();
-            printf("Params: %s\n", $3);
             checkParams(f, std::string($3));
-            printf("up here\n");
             if(existaFunc(f))
             {
                  printf("Apel corect al functiei cu params\n");

@@ -6,11 +6,19 @@ endDef;
 
 def f(x:Int,y:Char,z:Char):Int
 begin
+
 endDef;
 
 Class abc
 begin
-    Let x:Int;
+    Let asbvasdfas:Int;
+    Let asbvaasdasdsdfas:Int;
+    Let asbvasdasdfas:Int;
+    
+    def f(x:Int,y:Char):Int
+    begin
+        Let aux:Int;
+    endDef;
 endClass;
 
 

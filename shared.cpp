@@ -23,6 +23,11 @@ void SetCurrentFunctionName(char* fName)
         currentFunctionName=strdup(fName);
 }
 
+char* GetCurrentClassName()
+{
+    return currentClassName;
+}
+
 char* GetCurrentFunctionName()
 {
     return currentFunctionName;

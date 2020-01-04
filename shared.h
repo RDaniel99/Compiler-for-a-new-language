@@ -10,7 +10,7 @@ void SetIsInClass(bool b);
 bool GetIsInClass();
 
 void SetCurrentClassName(char* name);
-void GetCurrentClassName();
+char* GetCurrentClassName();
 
 void SetCurrentFunctionName(char* fName);
 char* GetCurrentFunctionName();

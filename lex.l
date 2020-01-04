@@ -12,8 +12,8 @@ int aux2=0;
 
 "/\*(.|\n)+\*/" ; 
 
-"endDef"   {SetIsInFunction(false);SetCurrentFunctionName(nullptr); scoateMem(); return ENDDEF; }
-"endClass" {SetIsInClass(false);  SetCurrentClassName(nullptr);                 return ENDCLASS; }
+"endDef"   {SetIsInFunction(false); SetCurrentFunctionName(nullptr); scoateMem(); return ENDDEF;   }
+"endClass" {SetIsInClass(false);    SetCurrentClassName(nullptr);                 return ENDCLASS; }
 
 "begin" { if(aux==0&&aux2==0) adaugaMem();return BEG;}
 "end"   { scoateMem(); return END;}

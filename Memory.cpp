@@ -44,7 +44,7 @@ bool Memory::Declarare(variabila v)
 bool Memory::Exista(functie f, int &pos)
 {
     pos = -1;
-    for(unsigned int i = 0; i < functii.size(); i++)
+    for(int i = 0; i < functii.size(); i++)
     {
         functie x;
         x.nume = functii[i].nume;
@@ -64,8 +64,6 @@ bool Memory::Exista(functie f, int &pos)
                 return true;
             }
         }
-        
-    
     }
     return false;
 }

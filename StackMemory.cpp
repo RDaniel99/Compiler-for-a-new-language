@@ -11,7 +11,7 @@ StackMemory::StackMemory()
 bool StackMemory::Exista(functie f, functie& rez)
 {
     int tmp;
-    for(unsigned int i = stck.size() - 1; i >= 0; --i)
+    for(int i = stck.size() - 1; i >= 0; --i)
         if(stck[i].Exista(f, tmp))
         {
             rez = f;
@@ -24,7 +24,7 @@ bool StackMemory::Exista(functie f, functie& rez)
 bool StackMemory::Exista(variabila v, variabila& rez)
 {
     int poz;
-    for(unsigned int i = stck.size() - 1; i >= 0; --i)
+    for(int i = stck.size() - 1; i >= 0; --i)
         if(stck[i].Exista(v, poz))
         {
             rez = stck[i].variabile[poz];
@@ -37,7 +37,7 @@ bool StackMemory::Exista(variabila v, variabila& rez)
 bool StackMemory::Exista(clasa c, clasa& rez)
 {
     int poz;
-    for(unsigned int i = stck.size() - 1; i >= 0; --i)
+    for(int i = stck.size() - 1; i >= 0; --i)
         if(stck[i].Exista(c, poz))
         {
             rez = stck[i].clase[poz];
@@ -105,7 +105,7 @@ bool StackMemory::PrintTable()
 {
     ofstream fout("symbol_table.txt");
 
-    for(unsigned int i = stck.size() - 1; i >= 0; i--)
+    for(int i = stck.size() - 1; i >= 0; i--)
     {
         fout << i << '\n';
 

@@ -388,10 +388,22 @@ asignare: ID '=' value
                   }
                   f.nume += str[i];
              }
-
-             if(b == 1 && existaVar(v) && existaFunc(f))
+             std::string params = "";
+             int ord = 0;
+             for(int i = 0;i<str.size(); i++)
              {
-                  if(v.tip == f.returnType)
+                    if(str[i] == ')') ord = 0;
+                    if(ord) params+=str[i];
+                    if(str[i] == '(') ord = 1;
+             }
+
+             checkParams(f, params);
+
+             if(b == 1 && existaVar(v))
+             {
+                  f.returnType = v.tip;
+
+                  if(existaFunc(f))
                   {
                        printf("Asignare corecta\n");
                   }

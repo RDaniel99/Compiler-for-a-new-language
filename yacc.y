@@ -97,12 +97,12 @@ expr2: expr2 '+' expr2 { $$ = $1 + $3; }
      ;
 
 
-declaratii: declaratie_clasa';'
-          | declaratie_variabila';'
-          | declaratie_functie';'
-          | declaratie_clasa';' declaratii
-          | declaratie_variabila';' declaratii
-          | declaratie_functie';' declaratii
+declaratii: declaratie_clasa';'                    {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue"; std::getchar();}
+          | declaratie_variabila';'                {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue"; std::getchar();}
+          | declaratie_functie';'                  {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue"; std::getchar();}
+          | declaratie_clasa';' declaratii         {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue"; std::getchar();}
+          | declaratie_variabila';' declaratii     {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue"; std::getchar();}
+          | declaratie_functie';' declaratii       {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue"; std::getchar();}
           ;
 
 tip: INT_TYPE                                     {$$="Int";}
@@ -110,6 +110,7 @@ tip: INT_TYPE                                     {$$="Int";}
    | FLOAT_TYPE                                   {$$="Float";}
    | CHAR_TYPE                                    {$$="Char";}
    | VOID_TYPE                                    {$$="Void";}
+   | STRING_TYPE                                  {$$="String";}
    | ARRAY_TYPE LR tip GR '[' INT_VALUE ']'       {$$="Aarray";}
    | class_type                                   {$$=$1;}
    ;
@@ -128,7 +129,7 @@ class_type: ID
                }
           ;
 
-declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS   
+declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS  
                { 
                    
                }
@@ -137,7 +138,7 @@ declaratie_clasa: CLASS ID BEG cod_clasa ENDCLASS
 cod_clasa:declaratii 
          ;
 
-declaratie_variabila: LET lista_variabile_declarare 
+declaratie_variabila: LET lista_variabile_declarare {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue"; std::getchar();}
                     ;
 
 lista_variabile_declarare: variabila_tip 
@@ -154,18 +155,10 @@ lista_variabile_declarare: variabila_tip
 
 
 variabila_tip: ID':'tip
-               {
-                    printTable();
-                    int auxiliarus;
-                    std::cin>>auxiliarus;
-                    
+               {             
+                           
                     clasa c;
                     c.nume=std::string($3);
-
-                    if(GetCurrentClassName())
-                         std::cout<<"clasa: "<<GetCurrentClassName()<<"\n";
-                    if(GetCurrentFunctionName())
-                         std::cout<<"\n functia: "<<GetCurrentFunctionName()<<"\n";
 
                     std::string pre="";
 
@@ -180,36 +173,29 @@ variabila_tip: ID':'tip
                               v.nume    = std::string($1);
                               v.tip     = std::string($3);
                               v.valoare = "";
-
-                              std::cout<<v.nume<<" "<<v.tip<<"\n";
-                              std::cout<<"REZULTAT APPEND: "<<appendToClass(c2,v)<<"\n";
+                              appendToClass(c2,v);
 
                               pre=std::string(GetCurrentClassName())+std::string("::");
                          }
                     }
 
                     if(existaClasa(c))
-                    {
-                         std::cout<<"clasa "<<c.nume<<"\nVARIABILE:\n";
-     
+                    {     
                          for (variabila var:c.membrii)
                          {
-                              std::cout<<var.nume<<"\n";
                               var.nume=std::string($1)+std::string(".")+var.nume;
                               adaugaVar(var);
                          }
-                         std::cout<<"FUNCTII:\n";
                          for (functie fun:c.functii)
                          {
-                              std::cout<<fun.nume<<"\n";
                               fun.nume=std::string($1)+std::string(".")+fun.nume;
                               adaugaFunc(fun);
                          }
                          
                     }
-                    else if(c.nume==std::string("Int")||c.nume==std::string("Float")||c.nume==std::string("Char")||c.nume==std::string("Bool")||c.nume==std::string("Void"))
+                    else if(c.nume==std::string("String")||c.nume==std::string("Int")||c.nume==std::string("Float")||c.nume==std::string("Char")||c.nume==std::string("Bool")||c.nume==std::string("Void"))
                     {
-                         printf("Tip standard\n");
+
                     }
                     else
                     {
@@ -227,7 +213,7 @@ variabila_tip: ID':'tip
                     v.valoare = "";
                     if(adaugaVar(v))
                     {
-                         printf("variabila %s de tipul %s declarata\n",v.nume.c_str(),$3);
+
                     }
                     else
                     {
@@ -240,7 +226,6 @@ variabila_tip: ID':'tip
 
 declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_functie ENDDEF 
                   { 
-
                        functie f;
                        f.nume = std::string($2);
                        f.returnType = std::string($7);
@@ -252,12 +237,14 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                             appendToClass(c,f);
                        }
                        else if(adaugaFunc(f))
-                         printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
+                       {
+                            
+                       }    
                        else
                        {
                          printf("functia %s nu a fost declarata cu tipul %s si parametrii %s", $2, $7, $4);
                          M_ERROR_EXISTS_FUNC
-                         exit(0);
+                        {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue";   std::getchar();} exit(0);
                        }
                   }
                   | DEF ID '('')' ':' tip BEG EMPTY ENDDEF                                
@@ -273,7 +260,9 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                        f.returnType = std::string($6);
                        f.parametrii.clear();
                        if(adaugaFunc(f))
-                         printf("functia %s declarata cu tipul %s fara parametri\n",$2, $6);
+                       {
+                            
+                       }
                        else
                        {
                          printf("functia %s nu a fost declarata cu tipul %s fara parametri\n", $2, $6);
@@ -296,7 +285,9 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                        f.returnType = std::string($7);
                        adaugaParams(f, std::string($4));
                        if(adaugaFunc(f))
-                         printf("functia %s declarata cu tipul %s si parametrii %s\n",$2,$7,$4);
+                       {
+
+                       }  
                        else
                        {
                          printf("functia %s nu a fost declarata cu tipul %s si parametrii %s\n", $2, $7, $4);
@@ -319,7 +310,9 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                        f.returnType = std::string($6);
                        f.parametrii.clear();
                        if(adaugaFunc(f))
-                         printf("functia %s declarata cu tipul %s fara parametri\n",$2,$6);
+                       {
+
+                       }
                        else
                        {
                          printf("functia %s nu a fost declarata cu tipul %s fara parametri\n", $2, $6);
@@ -331,18 +324,18 @@ declaratie_functie: DEF ID '('lista_variabile_declarare')' ':' tip BEG cod_funct
                   ;
 
 
-cod_functie: declaratie_variabila';'              
-           | statement                            
-           | declaratie_variabila';' cod_functie  
-           | statement cod_functie                
+cod_functie: declaratie_variabila';'                    
+           | statement                                       
+           | declaratie_variabila';' cod_functie        
+           | statement cod_functie                      
            ;
 
 
 statement: FOR '('for_params')' BEG cod_functie END 
          | WHILE '('conditions')' BEG cod_functie END
          | IF '('conditions')' BEG cod_functie END
-         | asignare';'
-         | apelare';'
+         | asignare';' {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue";   std::getchar();}
+         | apelare';'  {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue";   std::getchar();}
          ;
 
 
@@ -375,7 +368,6 @@ logical_operator: AND
 asignare: ID '=' value                       
           {
                
-               printf(" 1 | %s<-%s\n",$1,$3);
                variabila v;
                v.nume = std::string($1);
                if(existaVar(v))
@@ -391,7 +383,6 @@ asignare: ID '=' value
           }
         | ID '=' ID                          
           {
-             printf(" 2 | %s<-%s\n",$1,$3);
              variabila v1;
              variabila v2;
              v1.nume = std::string($1);
@@ -400,7 +391,6 @@ asignare: ID '=' value
              {
                   if(v1.tip == v2.tip && v2.valoare != "")
                   {
-                       printf("Asignare corecta\n");
                        v1.valoare = v2.valoare;
                        modifica(v1);
                   }
@@ -414,7 +404,6 @@ asignare: ID '=' value
         | ID '=' apelare                     
           {
                /// To-Do: pt eval()
-             printf(" 3 | %s<-%s\n",$1,$3);
              variabila v;
              std::string str = "";
              str += std::string($3);
@@ -447,7 +436,6 @@ asignare: ID '=' value
 
                   if(existaFunc(f))
                   {
-                       printf("Asignare corecta\n");
                   }
                   else
                   {
@@ -472,7 +460,6 @@ apelare: ID '(' ')'
                {
                     if(f.parametrii.size() == 0)
                     {
-                         printf("Apel corect functie fara params\n");
                     }
                     else
                     {
@@ -488,8 +475,6 @@ apelare: ID '(' ')'
           }
        | ID '('list_parametri')'   
           {
-            std::cout<<"NUME FUNCTIE APEL: "<<$1<<"\n";
-            std::cout<<"PARAMETRI        : "<<$3<<"\n";
             char* aux=strdup($1);
             $1=aux;
             strcat($$,"(");strcat($$,$3);strcat($$,")");
@@ -497,11 +482,9 @@ apelare: ID '(' ')'
             f.nume = std::string($1);
             f.returnType = "";
             f.parametrii.clear();
-            std::cout<<
             checkParams(f, std::string($3));
             if(existaFunc(f))
             {
-                 printf("Apel corect al functiei cu params\n");
             }
             else
             {
@@ -509,7 +492,7 @@ apelare: ID '(' ')'
                  exit(0);
             }
           }
-       | EVAL_FUNC '('expr')'      {if(strcmp("main",GetCurrentFunctionName())==0) printf("valoarea este: %d\n",$3);}
+       | EVAL_FUNC '('expr')'      {if(strcmp("main",GetCurrentFunctionName())==0) printf("Rezultatul evaluarii este: %d\n",$3);}
        ;
 
 
@@ -520,7 +503,7 @@ list_parametri: parametru          {}
 parametru: non_int_value            {$$=strdup($1);}
          | apelare                  {$$=strdup($1);}
          | ID                       {$$=strdup($1);}
-         | expr                     {char aux[30];sprintf(aux,"%d",$1);$$=strdup(aux); std::cout<<"RES: "<<$1<<"\n";}
+         | expr                     {char aux[30];sprintf(aux,"%d",$1);$$=strdup(aux);}
          ;
 
 value: INT_VALUE    
@@ -547,13 +530,10 @@ int main(int argc, char** argv){
 StackMemory memory;
 SetMemory(memory);
 adaugaMem();
-std::cout<<"1\n";
 SetIsInFunction(false);
 SetCurrentFunctionName(nullptr);
-std::cout<<"123\n";
 SetIsInClass(false);
 SetCurrentClassName(nullptr);
-std::cout<<"123\n";
 
 yyin=fopen(argv[1],"r");
 yyparse();

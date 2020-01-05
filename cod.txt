@@ -1,3 +1,8 @@
+def f(x:Int):Int
+begin
+
+endDef;
+
 Class abc
 begin
     Let elClasa1:Int;
@@ -23,11 +28,11 @@ begin
     y=2;
     z=2;
 
-    Let ch:Char;
+    Let ch:String;
 
-    ch='2';
+    ch=123;
 
-    x.f(y,1+2+3);
+    x.f(f(y),ch);
 endDef;
 
 

@@ -68,8 +68,10 @@ int aux2=0;
                            c.membrii.clear();
                            c.functii.clear();
                            
-                            if(adaugaClasa(c))
-                                 {printf("Clasa %s a fost adaugata.\n", yytext);}
+                           if(adaugaClasa(c))
+                           {
+
+                           }
                            else
                            {
                                  printf("Clasa %s n-a fost adaugata.\n", yytext);

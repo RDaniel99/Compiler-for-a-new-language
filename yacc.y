@@ -52,13 +52,13 @@ char*       strval;
 %type<strval> list_parametri
 %type<strval> tip
 %type<strval> class_type
-%type<strval> classContent
-%type<strval> classApelare
 %type<strval> value
 %type<strval> asignare
 %type<strval> apelare
 %type<strval> parametru
 %type<intval> expr
+%type<intval> expr2
+
 %type<strval> non_int_value
 
 %left '+' '-'
@@ -78,16 +78,23 @@ char*       strval;
 start: declaratii
      ;
 
-expr : expr '+' expr { $$ = $1 + $3; } 
-| expr '-' expr { $$ = $1 - $3; } 
-| expr '*' expr { $$ = $1 * $3; } 
-| expr '/' expr { $$ = $1 / $3; } 
-| '-' INT_VALUE { $$ = -atoi($2); } 
-| '-' ID { $$ = 0; } 
+expr : expr2 '+' expr2 { $$ = $1 + $3; } 
+| expr2 '-' expr2 { $$ = $1 - $3; } 
+| expr2 '*' expr2 { $$ = $1 * $3; } 
+| expr2 '/' expr2 { $$ = $1 / $3; } 
 | '(' expr ')' { $$ = $2; } 
-| INT_VALUE { $$ = atoi($1); } 
-| ID { $$ = 0; }; 
 ;
+
+expr2: expr2 '+' expr2 { $$ = $1 + $3; } 
+     | expr2 '-' expr2 { $$ = $1 - $3; } 
+     | expr2 '*' expr2 { $$ = $1 * $3; } 
+     | expr2 '/' expr2 { $$ = $1 / $3; } 
+     | '(' expr ')' { $$ = $2; } 
+     |'-'INT_VALUE { $$ = -1*atoi($2); } 
+     | '-'ID { $$ = 0; }; 
+     | INT_VALUE { $$ = -1*atoi($1); } 
+     | ID { $$ = 0; }; 
+     ;
 
 
 declaratii: declaratie_clasa';'
@@ -336,7 +343,6 @@ statement: FOR '('for_params')' BEG cod_functie END
          | IF '('conditions')' BEG cod_functie END
          | asignare';'
          | apelare';'
-         | classApelare';'
          ;
 
 
@@ -450,41 +456,8 @@ asignare: ID '=' value
                   }
              }
           }
-        | ID '=' classApelare                {printf(" 4 | %s<-%s\n",$1,$3);}
-        | ID '=' classContent                {printf(" 5 | %s<-%s\n",$1,$3);}
-        | classContent '=' value             {printf(" 6 | %s<-%s\n",$1,$3);}
-        | classContent '=' ID                {printf(" 7 | %s<-%s\n",$1,$3);}
-        | classContent '=' apelare           {printf(" 8 | %s<-%s\n",$1,$3);}
-        | classContent '=' classApelare      {printf(" 9 | %s<-%s\n",$1,$3);}
-        | classContent '=' classContent      {printf("10 | %s<-%s\n",$1,$3);}
         ;
 
-
-
-classContent: ID'.'ID
-               {
-                    strcat($$,".");
-                    strcat($$,$3);
-               }
-            | ID'.'classContent    
-               {
-                    strcat($$,".");
-                    strcat($$,$3);
-               }
-            ;
-
-classApelare: ID'.'classApelare
-               {
-
-                    strcat($$,".");
-                    strcat($$,$3);
-               }
-            | ID'.'apelare
-               {
-                    strcat($$,".");
-                    strcat($$,$3);
-               }
-            ;
 
 apelare: ID '(' ')'         
           {
@@ -516,6 +489,7 @@ apelare: ID '(' ')'
        | ID '('list_parametri')'   
           {
             std::cout<<"NUME FUNCTIE APEL: "<<$1<<"\n";
+            std::cout<<"PARAMETRI        : "<<$3<<"\n";
             char* aux=strdup($1);
             $1=aux;
             strcat($$,"(");strcat($$,$3);strcat($$,")");
@@ -523,6 +497,7 @@ apelare: ID '(' ')'
             f.nume = std::string($1);
             f.returnType = "";
             f.parametrii.clear();
+            std::cout<<
             checkParams(f, std::string($3));
             if(existaFunc(f))
             {
@@ -539,14 +514,13 @@ apelare: ID '(' ')'
 
 
 list_parametri: parametru          {}
-              | parametru',' list_parametri {strcat($$,",");strcat($$,$3);}
+              | parametru',' list_parametri {char aux[1024]; sprintf(aux,"%s,%s",$$,$3);$$=strdup(aux);}
               ;
 
 parametru: non_int_value            {$$=strdup($1);}
          | apelare                  {$$=strdup($1);}
-         | classApelare             {$$=strdup($1);}
-         | classContent             {$$=strdup($1);}
-         | expr                     {$$=strdup(std::to_string($1).c_str()); std::cout<<"RES: "<<$1<<"\n";}
+         | ID                       {$$=strdup($1);}
+         | expr                     {char aux[30];sprintf(aux,"%d",$1);$$=strdup(aux); std::cout<<"RES: "<<$1<<"\n";}
          ;
 
 value: INT_VALUE    

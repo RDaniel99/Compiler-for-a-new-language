@@ -16,12 +16,18 @@ def main():Int
 begin
     Let x:abc,y:Int,z:Int;
     x.elClasa1=1;
+    x.elClasa2=2;
     x.elClasa3=3;
     x.elClasa4=4;
 
+    y=2;
+    z=2;
+
     Let ch:Char;
 
-    x.f(y,ch);
+    ch='2';
+
+    x.f(y,1+2+3);
 endDef;
 
 

@@ -1,12 +1,12 @@
 Memoria numaru' 1
 Total variabile: 7
---Tip variabila: Int , nume variabila: x.elClasa1 valoare variabila: 
---Tip variabila: Int , nume variabila: x.elClasa2 valoare variabila: 
---Tip variabila: Int , nume variabila: x.elClasa3 valoare variabila: 
---Tip variabila: Int , nume variabila: x.elClasa4 valoare variabila: 
+--Tip variabila: Int , nume variabila: x.elClasa1 valoare variabila: 1
+--Tip variabila: Int , nume variabila: x.elClasa2 valoare variabila: 2
+--Tip variabila: Int , nume variabila: x.elClasa3 valoare variabila: 3
+--Tip variabila: Int , nume variabila: x.elClasa4 valoare variabila: 4
 --Tip variabila: abc , nume variabila: x valoare variabila: 
---Tip variabila: Int , nume variabila: y valoare variabila: 
---Tip variabila: Int , nume variabila: z valoare variabila: 
+--Tip variabila: Int , nume variabila: y valoare variabila: 2
+--Tip variabila: Int , nume variabila: z valoare variabila: 2
 
 
 Total functii: 1

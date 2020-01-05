@@ -53,7 +53,7 @@ int aux2=0;
                                      yylval.strval=strdup(yytext);
                                      return FLOAT_VALUE;}
 
-[A-Za-z][A-Za-z0-9]* {
+([A-Za-z][A-Za-z0-9]*\.[A-Za-z][A-Za-z0-9]*)*|[A-Za-z][A-Za-z0-9]* {
                         yylval.strval=strdup(yytext);
                         if(GetIsInFunction()==true && aux==1)
                         {

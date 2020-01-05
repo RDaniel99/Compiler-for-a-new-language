@@ -102,6 +102,10 @@ expr2: expr2 '+' expr2 { $$ = $1 + $3; }
                     {
                          $$=-1*atoi(v.valoare.c_str());
                     }
+                    else
+                    {
+                         std::cout<<"variabila "<<v.nume<<" nu este de tipul int asa ca va primi valoarea 0\n";
+                    }
                }
                else
                {
@@ -120,6 +124,10 @@ expr2: expr2 '+' expr2 { $$ = $1 + $3; }
                     if(v.tip==std::string("Int"))
                     {
                          $$=atoi(v.valoare.c_str());
+                    }
+                    else
+                    {
+                         std::cout<<"variabila "<<v.nume<<" nu este de tipul int asa ca va primi valoarea 0\n";
                     }
                }
                else

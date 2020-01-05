@@ -44,7 +44,7 @@ begin
 
     y=4;
     z=5;
-    eval(y+z+1);
+    eval(y+x+1);
 
 endDef;
 

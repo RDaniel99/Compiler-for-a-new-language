@@ -91,9 +91,43 @@ expr2: expr2 '+' expr2 { $$ = $1 + $3; }
      | expr2 '/' expr2 { $$ = $1 / $3; } 
      | '(' expr ')' { $$ = $2; } 
      |'-'INT_VALUE { $$ = -1*atoi($2); } 
-     | '-'ID { $$ = 0; }; 
-     | INT_VALUE { $$ = -1*atoi($1); } 
-     | ID { $$ = 0; }; 
+     | '-'ID 
+          { 
+               $$ = 0; 
+               variabila v; 
+               v.nume=std::string($2); 
+               if(existaVar(v))
+               { 
+                    if(v.tip==std::string("Int")) 
+                    {
+                         $$=-1*atoi(v.valoare.c_str());
+                    }
+               }
+               else
+               {
+                    std::cout<<"variabila "<<v.nume<<" nedeclarata\n";
+                    exit(1);
+               }
+          } 
+     | INT_VALUE { $$ = atoi($1);}
+     | ID 
+          { 
+               $$ = 0; 
+               variabila v;    
+               v.nume=std::string($1);  
+               if(existaVar(v))
+               {
+                    if(v.tip==std::string("Int"))
+                    {
+                         $$=atoi(v.valoare.c_str());
+                    }
+               }
+               else
+               {
+                    std::cout<<"variabila "<<v.nume<<" nedeclarata\n";
+                    exit(1);
+               }
+          }
      ;
 
 
@@ -332,7 +366,7 @@ cod_functie: declaratie_variabila';'
 
 
 statement: FOR '('for_params')' BEG cod_functie END 
-         | WHILE '('conditions')' BEG cod_functie END
+         | WHILE '('conditions')' BEG cod_functie END 
          | IF '('conditions')' BEG cod_functie END
          | asignare';' {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue";   std::getchar();}
          | apelare';'  {printTable();std::cout<<"linia "<<yylineno<<"\npress enter to continue";   std::getchar();}

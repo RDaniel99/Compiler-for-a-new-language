@@ -107,11 +107,14 @@ bool StackMemory::PrintTable()
 
     for(int i = stck.size() - 1; i >= 0; i--)
     {
+        fout << "--------------------------------------------------------------\n";
         fout << "Memoria numaru' " << i << '\n';
 
         stck[i].PrintTable(fout);
 
         fout << '\n' << '\n';
+
+        fout << "--------------------------------------------------------------\n";
     }
 
     fout.close();

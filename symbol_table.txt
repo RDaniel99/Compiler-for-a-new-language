@@ -1,25 +1,4 @@
-Memoria numaru' 1
-Total variabile: 8
---Tip variabila: Int , nume variabila: x.elClasa1 valoare variabila: 1
---Tip variabila: Int , nume variabila: x.elClasa2 valoare variabila: 2
---Tip variabila: Int , nume variabila: x.elClasa3 valoare variabila: 3
---Tip variabila: Int , nume variabila: x.elClasa4 valoare variabila: 4
---Tip variabila: abc , nume variabila: x valoare variabila: 
---Tip variabila: Int , nume variabila: y valoare variabila: 2
---Tip variabila: Int , nume variabila: z valoare variabila: 2
---Tip variabila: String , nume variabila: ch valoare variabila: 123
-
-
-Total functii: 1
---ReturnType: Int , Nume fct: x.f , total params: 2
-----tip param: Int nume param: x valoare param: 
-----tip param: Char nume param: y valoare param: 
-
-
-
-Total clase: 0
-
-
+--------------------------------------------------------------
 Memoria numaru' 0
 Total variabile: 4
 --Tip variabila: Int , nume variabila: abc::elClasa1 valoare variabila: 
@@ -28,9 +7,11 @@ Total variabile: 4
 --Tip variabila: Int , nume variabila: abc::elClasa4 valoare variabila: 
 
 
-Total functii: 1
+Total functii: 2
 --ReturnType: Int , Nume fct: f , total params: 1
 ----tip param: Int nume param: x valoare param: 
+
+--ReturnType: Int , Nume fct: main , total params: 0
 
 
 
@@ -45,3 +26,4 @@ Total clase: 1
 ------tip param: Char nume param: y valoare param: 
 
 
+--------------------------------------------------------------

@@ -28,11 +28,24 @@ begin
     y=2;
     z=2;
 
+    while(True)
+    begin
+        Let x:Int;
+        for(x=0;True;x=0)
+        begin
+            eval(1+2+x);
+        end
+    end
+
     Let ch:String;
+
 
     ch=123;
 
-    x.f(f(y),ch);
+    y=4;
+    z=5;
+    eval(y+z+1);
+
 endDef;
 
 
